@@ -4,7 +4,7 @@ Kevin Ashcraft's website featuring a home page and potential blog.
 
 ## Getting Started
 
-This site is built with [twig](https://twig.sensiolabs.org) templates that are built with [gulp](http://gulpjs.com) and is separated into folders for the different subdomains, www and blog.
+This site uses [twig](https://twig.sensiolabs.org) templates that are built with [gulp](http://gulpjs.com) and is separated into folders for the different subdomains, www and blog.
 
 ### Dependencies
 
@@ -21,6 +21,7 @@ The recommended server is [CentOS](https://www.centos.org/) running [Apache's ht
 ### Installation
 
 `yum install httpd mod_ssl epel-release`
+
 `yum install letsencrypt`
 
 ### Certificates
