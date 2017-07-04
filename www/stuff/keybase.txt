@@ -1,0 +1,53 @@
+https://keybase.io/kevashcraft
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.kevashcraft.com
+  * I am kevashcraft (https://keybase.io/kevashcraft) on keybase.
+  * I have a public key ASBAFQ8xeM4xmjtv72cYF49Wsz2E33nOjDZ1i1L5MmlVpQo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01017333ae93794bcf43be2fcc091caa5eabda428e979bd5a7ab09ce020ed0d0547f0a",
+            "host": "keybase.io",
+            "kid": "012040150f3178ce319a3b6fef6718178f56b33d84df79ce8c36758b52f9326955a50a",
+            "uid": "16311586c73bd56a04e1ea1c7c8ea500",
+            "username": "kevashcraft"
+        },
+        "service": {
+            "hostname": "www.kevashcraft.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.18"
+    },
+    "ctime": 1479875546,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1479875509,
+        "hash": "2fccbacab93efec605b0d813a8b84c8a94c49ad2e9a752b3b813e9117cc2a2cf10ab0c260919edfa31c49b9958cb91d07813a18fde06d00ed0e0eaa1508b66ae",
+        "seqno": 730946
+    },
+    "prev": "f8373b185c064ee9661d21cd126f699add92a55a36ade470c8df3b93c9007c63",
+    "seqno": 20,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgQBUPMXjOMZo7b+9nGBePVrM9hN95zow2dYtS+TJpVaUKp3BheWxvYWTFAv97ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxNzMzM2FlOTM3OTRiY2Y0M2JlMmZjYzA5MWNhYTVlYWJkYTQyOGU5NzliZDVhN2FiMDljZTAyMGVkMGQwNTQ3ZjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNDAxNTBmMzE3OGNlMzE5YTNiNmZlZjY3MTgxNzhmNTZiMzNkODRkZjc5Y2U4YzM2NzU4YjUyZjkzMjY5NTVhNTBhIiwidWlkIjoiMTYzMTE1ODZjNzNiZDU2YTA0ZTFlYTFjN2M4ZWE1MDAiLCJ1c2VybmFtZSI6ImtldmFzaGNyYWZ0In0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJ3d3cua2V2YXNoY3JhZnQuY29tIiwicHJvdG9jb2wiOiJodHRwczoifSwidHlwZSI6IndlYl9zZXJ2aWNlX2JpbmRpbmciLCJ2ZXJzaW9uIjoxfSwiY2xpZW50Ijp7Im5hbWUiOiJrZXliYXNlLmlvIGdvIGNsaWVudCIsInZlcnNpb24iOiIxLjAuMTgifSwiY3RpbWUiOjE0Nzk4NzU1NDYsImV4cGlyZV9pbiI6NTA0NTc2MDAwLCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTQ3OTg3NTUwOSwiaGFzaCI6IjJmY2NiYWNhYjkzZWZlYzYwNWIwZDgxM2E4Yjg0YzhhOTRjNDlhZDJlOWE3NTJiM2I4MTNlOTExN2NjMmEyY2YxMGFiMGMyNjA5MTllZGZhMzFjNDliOTk1OGNiOTFkMDc4MTNhMThmZGUwNmQwMGVkMGUwZWFhMTUwOGI2NmFlIiwic2Vxbm8iOjczMDk0Nn0sInByZXYiOiJmODM3M2IxODVjMDY0ZWU5NjYxZDIxY2QxMjZmNjk5YWRkOTJhNTVhMzZhZGU0NzBjOGRmM2I5M2M5MDA3YzYzIiwic2Vxbm8iOjIwLCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQCq0RFsHDJnQ3R2+TpSu6ZKcwaDKmbczviqQbAJDLl6ZqMIJFVEjcuwbUPIYPzrgWLUP1LWD4dRqY0rUN3l91Qioc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCBGaYcaDPUyYBvHcNygXpF4EIi+CdC9MtCaP1dqrz1+XKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/kevashcraft
+
+==================================================================

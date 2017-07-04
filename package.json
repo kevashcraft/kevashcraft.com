@@ -1,0 +1,38 @@
+{
+  "name": "kevashcraft.com",
+  "version": "1.0.0",
+  "description": "Kevin Ashcraft's Website",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevashcraft/kevashcraft.com.git"
+  },
+  "keywords": [
+    "Kevin",
+    "Ashcraft",
+    "Website"
+  ],
+  "author": "Kevin Ashcraft <kevin@kevashcraft.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevashcraft/kevashcraft.com/issues"
+  },
+  "homepage": "https://github.com/kevashcraft/kevashcraft.com#readme",
+  "dependencies": {
+    "del": "^3.0.0",
+    "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.5.0",
+    "gulp-debug": "^3.1.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-minify": "^1.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-twig": "^0.7.0",
+    "gulp-vulcanize": "^6.1.0",
+    "run-sequence": "^2.0.0"
+  }
+}
