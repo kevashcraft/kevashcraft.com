@@ -5,14 +5,15 @@
     <title>{{ title }} | Kevin Ashcraft</title>
   {% endblock %}
 
-  <link rel="stylesheet" type="text/css" href="/styles/master.css">
   {% include 'partials/google_analytics.twig' %}
 </head>
 <body>
   <main>
     {% block content %}{% endblock %}
   </main>
-</body>
   {% block footer %}{% endblock %}
+  <link rel="stylesheet" type="text/css" href="/styles/master.css">
   <script type="text/javascript" src="/scripts/master.js"></script>
+</body>
+{% block toe %}{% endblock %}
 </html>
