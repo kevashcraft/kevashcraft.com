@@ -1,0 +1,14 @@
+{% extends 'templates/master.twig' %}
+
+{% block title %}<title>Kevin's Blog</title>{% endblock %}
+
+{% block content %}
+  <section id="{{ blog.slug }}">
+    <header>
+      <h2>{{ blog.name }}</h2>
+    </header>
+    <article>
+      {% include 'blogs/' ~ blog.file %}
+    </article>
+  </section>
+{% endblock %}

@@ -11,6 +11,8 @@ var minifyHTML = require('gulp-htmlmin');
 var sequence = require('run-sequence');
 var fs = require('fs');
 var argv = require('yargs').argv;
+var mergeStream = require('merge-stream');
+var rename = require('gulp-rename');
 
 var prod = argv.production ? true : false;
 
@@ -46,6 +48,32 @@ gulp.task('site', function() {
   return stream;
 });
 
+// twig rendering
+gulp.task('blogs', function() {
+  var tasks = []
+  for (var i in blogs) {
+    var blog = blogs[i]
+    var d = {
+      site: data.site,
+      blog: blog,
+    }
+    tasks.push(gulp.src('blog/site/templates/blog.twig')
+      .pipe(twig({
+        errorLogToConsole: true,
+        base: 'blog/site',
+        data: d,
+        extend: twigMarkDown,
+      }))
+      .pipe(gulpif(prod, minifyHTML({
+        collapseWhitespace: true,
+      })))
+      .pipe(rename("index.html"))
+      .pipe(gulp.dest('blog/dist/' + blog.url))
+    )
+  }
+  return mergeStream(tasks);
+});
+
 // sass compilation
 gulp.task('styles', function(cb) {
   var stream = gulp.src('blog/styles/**/*.scss')
@@ -73,7 +101,7 @@ gulp.task('stuff', function(cb) {
     .pipe(gulp.dest('blog/dist'));
 });
 
-gulp.task('all', ['site', 'styles', 'scripts', 'stuff'])
+gulp.task('all', ['site', 'styles', 'scripts', 'stuff', 'blogs'])
 
 gulp.task('default', ['clean'], function () {
   gulp.start('all')
@@ -83,5 +111,5 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('blog/stuff/**/*.*', ['stuff']);
   gulp.watch('blog/styles/**/*.scss', ['styles']);
   gulp.watch('blog/scripts/**/*.js', ['scripts']);
-  gulp.watch('blog/site/**/*.*', ['site']);
+  gulp.watch('blog/site/**/*.*', ['site', 'blogs']);
 });
