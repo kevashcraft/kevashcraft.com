@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% block title %}<title>{{ title }} | Kevin's Blog</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="author" content="Kevin Ashcraft">
+  <meta name="description" content="Kevin Ashcraft's blog about all the things, some of the things, and a few other things.">
+
+  <link rel="canonical" href="https://blog.kevashcraft.com">
+  <link rel="author" href="https://plus.google.com/+KevinAshcraft">
+
+  {% if site.production %}
+    {% include 'partials/google_analytics.twig' %}
+  {% endif %}
+</head>
+<body>
+  <header>
+    <h1>Kevin's Blog</h1>
+    <nav>
+      <ul>
+        <li>Previous</li>
+        <li>Next</li>
+      </ul>
+    </nav>
+    <button></button>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+  {% block footer %}
+    <link rel="stylesheet" type="text/css" href="/styles/master.css">
+    <script type="text/javascript" src="/scripts/master.js"></script>
+  {% endblock %}
+  {% block toe %}
+  {% endblock %}
+</html>

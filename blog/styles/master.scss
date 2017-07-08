@@ -1,0 +1,78 @@
+@import "lib/reset.scss";
+@import "config.scss";
+
+html {
+  height: 100%;
+
+  body {
+    min-height: 100%;
+    background: #FAFAFA;
+
+    font-size: 18px;
+
+    >main {
+
+      >header {
+        display: block;
+        background: #90A4AE;
+        padding: 1em;
+        @media screen and (max-width: $large) {
+          padding: 0.5em;
+        }
+
+        >h1 {
+          padding: 0 0 0 1em;
+          font-size: 2em;
+          @media screen and (max-width: $large) {
+            padding: 0 0 0 0.5em;
+          }
+        }
+        >h2 {
+          padding: 0 0 0.3em 2em;
+          font-size: 1.5em;
+          @media screen and (max-width: $large) {
+            padding: 0 0 0 0.5em;
+          }
+        }
+      }
+
+      >section {
+        display: block;
+        padding: 3em;
+        background: #FFF;
+        &:not(:first-of-type) {
+          margin: 2em 0 0 0;
+        }
+        @media screen and (max-width: $large) {
+          padding: 1em;
+        }
+
+        >h1 {
+          padding: 1em 0 0.5em 2em;
+          font-size: 1.5em;
+          @media screen and (max-width: $large) {
+            padding: 0.5em 0 0em 0.5em;
+          }
+        }
+
+        >p {
+          display: block;
+          line-height: 1.5em;
+          padding: 1em 0 0.5em 3em;
+          @media screen and (max-width: $large) {
+            padding: 0.5em 0 0.5em 1em;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+a {
+  text-decoration: none;
+  &:visited {
+    color: blue;
+  }
+}

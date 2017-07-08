@@ -4,6 +4,7 @@ var gulpif = require('gulp-if');
 var del = require('del');
 var sass = require('gulp-sass');
 var twig = require('gulp-twig');
+var twigMarkDown = require('twig-markdown');
 var minifyJS = require('gulp-minify');
 var minifyCSS = require('gulp-clean-css');
 var minifyHTML = require('gulp-htmlmin');
@@ -12,6 +13,17 @@ var fs = require('fs');
 var argv = require('yargs').argv;
 
 var prod = argv.production ? true : false;
+
+var blogs = JSON.parse(fs.readFileSync('blog/blogs.json'))
+
+
+
+var data = {
+  site: {
+    production: prod,
+  },
+  blogs: blogs,
+}
 
 gulp.task('clean', function(cb) {
   return del('blog/dist');
@@ -24,6 +36,8 @@ gulp.task('site', function() {
     .pipe(twig({
       errorLogToConsole: true,
       base: 'blog/site',
+      data: data,
+      extend: twigMarkDown,
     }))
     .pipe(gulpif(prod, minifyHTML({
       collapseWhitespace: true,
@@ -69,5 +83,5 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('blog/stuff/**/*.*', ['stuff']);
   gulp.watch('blog/styles/**/*.scss', ['styles']);
   gulp.watch('blog/scripts/**/*.js', ['scripts']);
-  gulp.watch('blog/site/**/*.twig', ['site']);
+  gulp.watch('blog/site/**/*.*', ['site']);
 });
