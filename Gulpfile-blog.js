@@ -18,7 +18,23 @@ var prod = argv.production ? true : false;
 
 var blogs = JSON.parse(fs.readFileSync('blog/blogs.json'))
 
+blogs.sort(function (a, b) {
+  if (a.order) {
+    if (b.order) {
+      if (a.order < b.order) return -1
+      if (a.order > b.order) return 1
+    } else {
+      return -1
+    }
+  }
 
+  var aDate = new Date(a.date)
+  var bDate = new Date(b.date)
+
+  if (aDate > bDate) return -1
+  if (aDate < bDate) return 1
+  return 0
+})
 
 var data = {
   site: {
