@@ -1,42 +1,44 @@
 @import "lib/reset.scss";
 @import "config.scss";
+@import "theme.scss";
+@import "mixins.scss";
 
 html {
   height: 100%;
 
   body {
     min-height: 100%;
-    background: #FAFAFA;
+    background: $main-background;
 
-    font-size: 18px;
+    font-size: $master-font-size;
+    padding-top: $header-height;
 
-    >main {
+    >header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: $header-height;
+      width: 100%;
+      background: $header-background;
 
-      >header {
-        display: block;
-        background: #90A4AE;
-        padding: 1em;
+      >h1 {
+        padding: 0 0 0 1em;
+        font-size: 1.5em;
         @media screen and (max-width: $large) {
-          padding: 0.5em;
+          padding: 0 0 0 0.5em;
         }
 
-        >h1 {
-          padding: 0 0 0 1em;
-          font-size: 2em;
-          @media screen and (max-width: $large) {
-            padding: 0 0 0 0.5em;
-          }
-        }
-        >h2 {
-          padding: 0 0 0.3em 2em;
-          font-size: 1.5em;
-          @media screen and (max-width: $large) {
-            padding: 0 0 0 0.5em;
-          }
+        a {
+          @include link-base;
         }
       }
+    }
+
+    >main {
+      background: $main-background;
 
       >section {
+        margin: 35px;
         display: block;
         padding: 3em;
         background: #FFF;
@@ -47,32 +49,33 @@ html {
           padding: 1em;
         }
 
-        >h1 {
-          padding: 1em 0 0.5em 2em;
-          font-size: 1.5em;
-          @media screen and (max-width: $large) {
-            padding: 0.5em 0 0em 0.5em;
+        >header {
+          h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+          }
+          small {
+            font-size: 0.75em;
           }
         }
 
-        >p {
-          display: block;
-          line-height: 1.5em;
-          padding: 1em 0 0.5em 3em;
-          @media screen and (max-width: $large) {
-            padding: 0.5em 0 0.5em 1em;
+        >article {
+          h2 {
+            font-size: 1.5em;
+          }
+          h3 {
+            font-size: 1.25em;
+          }
+          a {
+            @include link;
+          }
+
+          p {
+            line-height: 1.25em;
+            margin: 1em;
           }
         }
       }
     }
-  }
-}
-
-
-
-a {
-  text-decoration: none;
-  &:visited {
-    color: blue;
   }
 }

@@ -14,13 +14,13 @@ Please refer to The Beatles for more on this topic.
 
 ### This Site
 
-Back to something more concrete, let's talk about this site. It's built with a couple of cool webdev toys of 2017, [gulp](http://gulpjs.com/), [twig](https://twig.sensiolabs.org/). There are two competing goals (among all of the other ones) in web development and those are speed and the ability to be dynamic. For example, a site's content should be ready in less than a second and the layout should be the same for all pages while hopefully not having to be manually repeated on each page.
+Back to something more concrete, let's talk about this site. It's built with a couple of cool webdev toys of 2017, <a href="http://gulpjs.com/" target="_blank" rel="noopener">gulp</a> and <a href="https://twig.sensiolabs.org/" target="_blank" rel="noopener">twig</a>. There are two competing goals (among all of the other ones) in web development and those are speed and the ability to be dynamic. For example, a site's content should be ready in less than a second and the layout should be the same for all pages while hopefully not having to be manually repeated on each page.
 
 A site built with PHP could accomplish the second goal easily, just make a template file and have it load in content from the database depending on the url that was requested. That's also nice because the database can be one central location for all of the content and anything else that's going to be done on the site like comments or analytics.
 
 The downside to using a server-side script to generate the site is that it has to run on each page load and that takes cpu cycles and memory. I mean, in reality it's a very small amount of resources, especially for a simple blog, but it's still more than nothing and when considering scaling (in that magical world where a site's loading 10k times a minute) it's a real bottleneck.
 
-To get speedy quick a site can be all static files, just some text that never changes and gets sent right away when the user requests it, no processing needed. I think text files are ideal, especially when formatted in a way to work well with browsers since we all want to get a 100 on the [Google page speed test](https://developers.google.com/speed/pagespeed/insights/), even though that's a challenge that'll make you go crazy (looking at you `analytics.js`).
+To get speedy quick a site can be all static files, just some text that never changes and gets sent right away when the user requests it, no processing needed. I think text files are ideal, especially when formatted in a way to work well with browsers since we all want to get a 100 on the <a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">Google page speed test</a>, even though that's a challenge that'll make you go crazy (looking at you `analytics.js`).
 
 The challenge with text files is that they're so static and would require the same content to be in each one with the header and footer and other resources. Plus, to change anything simple, like the site title, each file would have to be updated.
 

@@ -1,0 +1,9 @@
+<section id="{{ blog.slug }}" class="blog">
+  <header>
+    <h2>{{ blog.title }}</h2>
+    <small>{{ blog.date|date('l, F jS, Y - g:i a') }}</small>
+  </header>
+  <article>
+    {% include 'blogs/' ~ blog.file %}
+  </article>
+</section>
