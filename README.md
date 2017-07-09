@@ -26,14 +26,14 @@ The recommended server is [CentOS](https://www.centos.org/) running [Apache's ht
 
 ### Certificates
 
-`letsencrypt certonly --standalone -d www.kevashcraft.com -d kevashcraft.com -d blog.kevashcraft.com`
+`letsencrypt certonly --standalone -d kevashcraft.com -d www.kevashcraft.com -d blog.kevashcraft.com`
 
 ### VirtualHost
 
 ```
 <VirtualHost *:80>
-  ServerName www.kevashcraft.com
-  ServerAlias kevashcraft.com
+  ServerName kevashcraft.com
+  ServerAlias www.kevashcraft.com
 
   RewriteEngine on
   RewriteRule (.*) https://www.kevashcraft.com$1 [R,L]
@@ -46,10 +46,10 @@ The recommended server is [CentOS](https://www.centos.org/) running [Apache's ht
   RewriteRule (.*) https://www.kevashcraft.com$1 [R,L]
 
   SSLEngine on
-  SSLCertificateFile      /etc/letsencrypt/live/www.kevashcraft.com/cert.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/www.kevashcraft.com/chain.pem
-  SSLCertificateKeyFile   /etc/letsencrypt/live/www.kevashcraft.com/privkey.pem
-  SSLCACertificateFile    /etc/letsencrypt/live/www.kevashcraft.com/fullchain.pem
+  SSLCertificateFile      /etc/letsencrypt/live/kevashcraft.com/cert.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/kevashcraft.com/chain.pem
+  SSLCertificateKeyFile   /etc/letsencrypt/live/kevashcraft.com/privkey.pem
+  SSLCACertificateFile    /etc/letsencrypt/live/kevashcraft.com/fullchain.pem
   # HSTS (mod_headers is required) (15768000 seconds = 6 months)
   Header always set Strict-Transport-Security "max-age=15768000"
 </VirtualHost>
@@ -76,10 +76,10 @@ The recommended server is [CentOS](https://www.centos.org/) running [Apache's ht
   </FilesMatch>
 
   SSLEngine on
-  SSLCertificateFile      /etc/letsencrypt/live/www.kevashcraft.com/cert.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/www.kevashcraft.com/chain.pem
-  SSLCertificateKeyFile   /etc/letsencrypt/live/www.kevashcraft.com/privkey.pem
-  SSLCACertificateFile    /etc/letsencrypt/live/www.kevashcraft.com/fullchain.pem
+  SSLCertificateFile      /etc/letsencrypt/live/kevashcraft.com/cert.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/kevashcraft.com/chain.pem
+  SSLCertificateKeyFile   /etc/letsencrypt/live/kevashcraft.com/privkey.pem
+  SSLCACertificateFile    /etc/letsencrypt/live/kevashcraft.com/fullchain.pem
   # HSTS (mod_headers is required) (15768000 seconds = 6 months)
   Header always set Strict-Transport-Security "max-age=15768000"
 </VirtualHost>
@@ -106,14 +106,13 @@ The recommended server is [CentOS](https://www.centos.org/) running [Apache's ht
   </FilesMatch>
 
   SSLEngine on
-  SSLCertificateFile      /etc/letsencrypt/live/www.kevashcraft.com/cert.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/www.kevashcraft.com/chain.pem
-  SSLCertificateKeyFile   /etc/letsencrypt/live/www.kevashcraft.com/privkey.pem
-  SSLCACertificateFile    /etc/letsencrypt/live/www.kevashcraft.com/fullchain.pem
+  SSLCertificateFile      /etc/letsencrypt/live/kevashcraft.com/cert.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/kevashcraft.com/chain.pem
+  SSLCertificateKeyFile   /etc/letsencrypt/live/kevashcraft.com/privkey.pem
+  SSLCACertificateFile    /etc/letsencrypt/live/kevashcraft.com/fullchain.pem
   # HSTS (mod_headers is required) (15768000 seconds = 6 months)
   Header always set Strict-Transport-Security "max-age=15768000"
 </VirtualHost>
-
 ```
 
 ## License
