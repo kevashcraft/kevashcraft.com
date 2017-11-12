@@ -55,7 +55,7 @@ gulp.task('scripts', function(cb) {
 });
 
 gulp.task('stuff', function(cb) {
-  return gulp.src(['www/stuff/**/*', 'www/stuff/**/.*'])
+  return gulp.src(['www/stuff/**/*', 'www/stuff/**/.*', 'node_modules/font-awesome'])
     .pipe(gulp.dest('www/dist'));
 });
 

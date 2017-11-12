@@ -19,8 +19,7 @@
   <meta name="msapplication-tooltip" content="Tooltip">
   <meta name="msapplication-config" content="/ieconfig.xml">
 
-  <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
-  {% include 'partials/google_analytics.twig' %}
+  {#{% include 'partials/google_analytics.twig' %}#}
 </head>
 <body>
   <main>
@@ -28,6 +27,8 @@
   </main>
 </body>
   {% block footer %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo+2">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/master.css">
     <script type="text/javascript" src="/scripts/master.js"></script>
   {% endblock %}

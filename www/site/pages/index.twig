@@ -4,48 +4,176 @@
 
 {% block content %}
 <header>
-  <h1><a href="https://www.kevashcraft.com">Kevin Ashcraft</a></h1>
+  <h1>Kev<span class="accent">in</span> Ashcraft</h1>
   <h2>Computer Programmer</h2>
 </header>
 <section>
-  <h1>Hello World</h1>
-  <p>
-    Welcome to my website! I'm Kevin Ashcraft, a computer programmer and amateur radio operator in Auburndale, Florida.
-    <br>
-    You can find some of my code on <a href="https://github.com/kevashcraft" target="_blank" rel="noopener">Github</a>, and some of my mania on <a href="https://twitter.com/kevashcraft" target="_blank" rel="noopener">Twitter</a>. I've also got a <a href="https://blog.kevashcraft.com" target="_blank" rel="noopener">blog</a>.
-  </p>
+  <h3>Hello World</h3>
+  <div class="flex">
+    <div>
+      <img class="standard float-left" src="https://avatars2.githubusercontent.com/u/3028329?s=400&u=dcfb092eb190f79411167d447b10b35dd22a9267&v=4">
+    </div>
+    <div class="stretch">
+      <p><strong>I'm Kevin Ashcraft</strong>, a <a href="#computer-programmer">computer programmer</a> and <a href="#amateur-radio">amatuer radio operator</a> in <a href="#auburndale-florida">Auburndale, Florida</a>. Welcome to my website! There are many others out there, but this one is my very own. Here are a few more lines of words to see how the word wrap will work. It looks like one more line is needed. So maybe two will do it? Okay, one more. Is it all of the margin?</p>
+    </div>
+  </div>
 </section>
+<section id="computer-programmer">
+  <img class="section-header" src="/img/keyboard.png">
+  <h3>Computer Programmer</h3>
+  <div class="flex">
+    <div class="stacked logos">
+      <img src="/img/centos_logo.png">
+      <img src="/img/redhat_logo.png">
+      <img src="/img/ubuntu_logo.png">
+    </div>
+    <div class="stretch">
+      <p>I am a <strong>Linux administrator</strong> and feel at home in the command line. I grew up programming in other operating systems, but once I started with Linux everything came into place and the different parts of the system, networking, browsing, scripting, files and databases, all met in one place. Now everything from the home router to the server hosting this site is powered by the Linux kernel.</p>
+    </div>
+  </div>
+  <div class="flex">
+    <div class="stretch">
+      <p>I am a <strong>database administrator</strong> and enjoy managing large armounts of data. If Linux is where the whole computer ecosystem came into place for me, then the database is where programming clicked into place. Everything is about the data.</p>
+    </div>
+    <div class="stacked logos">
+      <img src="/img/postgres_logo.png">
+      <img src="/img/mysql-mariadb_logo.png">
+      <img src="/img/mongo_logo.png">
+    </div>
+  </div>
+  <div class="flex">
+    <div class="stacked logos">
+      <img src="/img/html5_logo.png">
+      <img src="/img/css3_logo.png">
+      <img src="/img/nodejs_logo.png">
+      <img src="/img/polymer_logo.png">
+      <img src="/img/vuejs_logo.png">
+      <img src="/img/gulp_logo.png">
+    </div>
+    <div class="stretch">
+      <p>I am a <strong>full-stack developer</strong> and create complete applications to manage and analyze data. The web browser has become the perfect frontend to the database; it's verstile, working on every system, and as limitless as the data it displays, able to draw interactive graphs to entertaining animations.</p>
+    </div>
+  </div>
+</section>
+<section id="amateur-radio">
+  <h3>Amateur Radio Station</h3>
+  <div class="flex">
+    <div class="stretch">
+      <p>My callsign is <strong>KM4FPA</strong> and I'm a net control station for the Eagle Net on the <a href="http://ni4ce.org/wp1/" title="West Central Florida NI4CE Repeater System" rel="noopener" target="_blank">NI4CE repeater system</a>. My primary radio is an Icom 7100, with a Yaesu 8900 for mobile, and Baofeng's filling in the gaps.</p>
+      <p>Checkout my radio website at <a href="https://km4fpa.com" target="_blank">KM4FPA.com</a>.</p>
+    </div>
+    <div class="stacked images">
+      <img src="/img/radios/yaesu-icom-baofeng.jpg">
+    </div>
+  </div>
+  <div class="flex around images">
+    <img src="/img/radios/icom-7100.jpg">
+    <img src="/img/radios/yaesu-8900.jpg">
+  </div>
+</section>
+<section id="auburndale-florida">
+  <h3>Native Floridian</h3>
+  <div class="flex">
+    <div class="stretch">
+      <p>I've been born and raised in <strong>Central Florida</strong>.</p>
+    </div>
+    <div>
+      <img src="/img/florida.png">
+    </div>
+  </div>
+</section>
+<!--<div>-->
+<!--  <img>-->
+<!--</div>-->
 <section>
-  <h1>Getting Started</h1>
-  <p>
-    This is the 10th time, at least, that I've made this website. Learning something new, trying to beat Google's Page Speed test, getting busy with a paying project, all have caused previous iterations to be fatal. So this time I'm working with a new premise: start small and increase momentum.
-    <br>
-    This is a basic one-page setup built with my favorite tools (for now) and we'll see if I get the time to come back and add in the blog, some images, and a bit of js.
-    <br>
-    Until next time, have a cool day and thanks for stopping by the site.
-  </p>
+  <img class="section-header" src="/img/telescope.png">
+  <h3>Find Me</h3>
+  <p>Contact me <strong>via email</strong> at <a href="mailto:kevin@kevashcraft.com?subject=Hello from your website">kevin@kevashcraft.com</a> or type a quick message below:</p>
+  <p>and you can <strong>find me around the web</strong>...</p>
+  <div class="flex around social">
+    <ul>
+      <li>
+        <a href="https://github.com/kevashcraft" title="KevAshcraft on Github">
+          <i class="fa fa-github"></i>
+          <span>Github</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/kevashcraft" title="@kevashcraft on Twitter">
+          <i class="fa fa-twitter"></i>
+          <span>Twitter</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://plus.google.com/+KevinAshcraft" title="+KevinAshcraft on Google Plus" target="_blank" rel="noopener">
+          <i class="fa fa-google-plus"></i>
+          <span>Google+</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://about.me/kevashcraft" title="KevAshcraft on About.me" target="_blank" rel="noopener">
+          <i class="fa fa-user-circle-o"></i>
+          <span>About.me</span>
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="https://hub.docker.com/u/kevashcraft/" title="KevAshcraft on Docker" target="_blank" rel="noopener">
+          <i class="fa fa-rocket"></i>
+          <span>Docker</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/kevashcraft" title="KevAshcraft on Facebook" target="_blank" rel="noopener">
+          <i class="fa fa-facebook"></i>
+          <span>Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/kevashcraft/" title="@kevashcraft on Instagram" target="_blank" rel="noopener">
+          <i class="fa fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://keybase.io/kevashcraft" title="KevAshcraft on Keybase.io" target="_blank" rel="noopener">
+          <i class="fa fa-key"></i>
+          <span>Keybase.io</span>
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="https://www.linkedin.com/in/kevashcraft" title="KevAshcraft on LinkedIn" target="_blank" rel="noopener">
+          <i class="fa fa-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.reddit.com/user/kevashcraft" title="KevAshcraft on Reddit" target="_blank" rel="noopener">
+          <i class="fa fa-reddit-alien"></i>
+          <span>Reddit</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/user/kevashcraft" title="KevAshcraft on YouTube" target="_blank" rel="noopener">
+          <i class="fa fa-youtube-play"></i>
+          <span>YouTube</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.pinterest.com/kevashcraft/" title="KevAshcraft on Pinterest" target="_blank" rel="noopener">
+          <i class="fa fa-pinterest-p"></i>
+          <span>Pinterest</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </section>
-<section>
-  <h1>Around the Web</h1>
-  <p>
-    You can find me on most sites with the username <i>kevashcraft</i>.
-  </p>
-  <ul>
-    <li><a href="https://about.me/kevashcraft" target="_blank" rel="noopener">About.me</a></li>
-    <li><a href="https://hub.docker.com/u/kevashcraft/" target="_blank" rel="noopener">Docker</a></li>
-    <li><a href="https://www.facebook.com/kevashcraft" target="_blank" rel="noopener">Facebook</a></li>
-    <li><a href="https://github.com/kevashcraft" target="_blank" rel="noopener">Github</a></li>
-    <li><a href="https://plus.google.com/+KevinAshcraft" target="_blank" rel="noopener">Google+</a></li>
-    <li><a href="https://www.instagram.com/kevashcraft/" target="_blank" rel="noopener">Instagram</a></li>
-    <li><a href="https://keybase.io/kevashcraft" target="_blank" rel="noopener">Keybase.io</a></li>
-    <li><a href="https://www.linkedin.com/in/kevashcraft" target="_blank" rel="noopener">LinkedIn</a></li>
-    <li><a href="https://www.reddit.com/user/kevashcraft" target="_blank" rel="noopener">Reddit</a></li>
-    <li><a href="https://twitter.com/kevashcraft" target="_blank" rel="noopener">Twitter</a></li>
-    <li><a href="https://www.youtube.com/user/kevashcraft" target="_blank" rel="noopener">YouTube</a></li>
-    <li><a href="https://www.pinterest.com/kevashcraft/">Pinterest</a></li>
-  </ul>
-  <p>
-    Most of these accounts are unused, but I figure the list could be helpful for some seo.
-  </p>
-</section>
+<footer class="flex around">
+  <div class="columns">
+    
+  </div>
+</footer>
 {% endblock %}
