@@ -23,12 +23,17 @@
 </head>
 <body>
   <main>
-    {% block content %}{% endblock %}
+    <article>
+      {% block content %}{% endblock %}
+    </article>
+    {% block footer %}
+      {% include 'partials/footer.twig' %}
+    {% endblock %}
   </main>
 </body>
-  {% block footer %}
+  {% block foot %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo+2">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/master.css">
     <script type="text/javascript" src="/scripts/master.js"></script>
   {% endblock %}

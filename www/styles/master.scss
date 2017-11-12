@@ -6,33 +6,34 @@ html {
 
   > body {
     min-height: 100%;
-    background: $site-background-color;
+    background: $site-background-primary-color;
     font-family: $site-font-family;
     font-size: $site-font-size;
     line-height: 1.5em;
 
     > main {
-      display: block;
-      max-width: 800px;
-      margin: 0 auto;
-
       /* Site header */
       > header {
         margin: 0.5em 0 2em 0;
       }
-
-      /* Standard section */
-      section {
-        margin: 1em 0.5em 3em;
-
-        strong {
-          font-weight: bold;
+      
+      > article {
+        display: block;
+        max-width: 800px;
+        margin: 0 auto;
+        /* Standard section */
+        section {
+          margin: 1em 0.5em 3em;
+        
+          strong {
+            font-weight: bold;
+          }
+          p {
+            margin: 1em 2em;
+            font-size: 1em;
+          }
+        
         }
-        p {
-          margin: 1em 2em;
-          font-size: 1em;
-        }
-
       }
 
       /* Primary elements */
@@ -185,6 +186,11 @@ html {
         max-height: 125px;
       }
 
+    }
+    > footer {
+      display: block;
+      min-height: 400px;
+      background: darken($site-background-accent-color, 45%);
     }
   }
 }
