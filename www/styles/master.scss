@@ -19,11 +19,13 @@ html {
       
       > article {
         display: block;
-        max-width: 800px;
+        max-width: 1200px;
+        padding: 1em 3em;
         margin: 0 auto;
         /* Standard section */
         section {
           margin: 1em 0.5em 3em;
+          padding-top: 4em;
         
           strong {
             font-weight: bold;
@@ -47,6 +49,12 @@ html {
         }
         &:hover {
           border-bottom: 2px solid $text-accent-color;
+        }
+        h1 {
+          transition: color .3s ease;
+        }
+        &:hover h1 {
+          color: $text-accent-color;
         }
       }
       h1, h2, h3 {
@@ -95,7 +103,7 @@ html {
 
       .flex {
         display: flex;
-        align-items: stretch;
+        align-items: center;
 
         &.around {
           align-items: center;
@@ -133,8 +141,8 @@ html {
       }
       .images {
         img {
-          max-width: 150px;
-          max-height: 150px;
+          max-width: 300px;
+          max-height: 300px;
           margin: 2em;
         }
       }
@@ -147,7 +155,7 @@ html {
               display: block;
               margin-left: 0.5em;
               border: none;
-              color: lighten($text-accent-color, 15%);
+              color: darken($text-accent-color, 25%);
               transition: color .3s ease;
               &:hover {
                 border: none;
@@ -157,8 +165,8 @@ html {
                 }
               }
               i {
+                color: lighten($text-accent-color, 25%);
                 transition: color .3s ease;
-                color: darken($text-accent-color, 15%);
                 float: left;
                 margin: 5px 10px;
                 width: 25px;
@@ -186,11 +194,40 @@ html {
         max-height: 125px;
       }
 
-    }
-    > footer {
-      display: block;
-      min-height: 400px;
-      background: darken($site-background-accent-color, 45%);
+      > footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 400px;
+        background: darken($text-accent-color, 15%);
+        padding-top: 25px;
+        
+        h1, h2, h3, p, a {
+          color: invert($text-primary-color);
+          span {
+            color: invert($text-accent-color);
+          }
+        }
+
+        > div:first-of-type {
+          min-height: 300px;
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+
+          > div {
+            display: flex;
+            max-width: 33%;
+            margin: 25px;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
+        > div:last-of-type {
+          text-align: center;
+          font-size: 0.4em;
+        }
+      }
     }
   }
 }
