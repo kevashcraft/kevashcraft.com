@@ -1,0 +1,16 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = folder.folderName %}
+
+{% block content %}
+<h3>{{ folder.folderName }}</h3>
+<section>
+  <ul>
+    {% for tutorial in folder.tutorials %}
+    <li>
+      <a href="/{{ tutorial.folder }}/{{ tutorial.page }}" title="{{ tutorial.title }}">{{ tutorial.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'templates/master.twig' %}
+
+{% block title %}<title>Kevin's Linux & Radio Tutorials</title>{% endblock %}
+
+{% block content %}
+
+<section>
+  <ul>
+    {% for tag in tags %}
+    <li>
+      <a href="/tags/{{ tag.tag|lower }}" title="{{ tag.tag }} Tutorials">#{{ tag.tag }}</a>
+      <ul>
+      {% for tutorial in tag.tutorials %}
+        <li>
+          <a href="/{{ tutorial.folder }}/{{ tutorial.page }}">{{ tutorial.title }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
