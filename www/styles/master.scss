@@ -202,7 +202,7 @@ html {
         background: darken($text-accent-color, 15%);
         padding-top: 25px;
         
-        h1, h2, h3, p, a {
+        h1, h2, h3, p, a, a:visited {
           color: invert($text-primary-color);
           span {
             color: invert($text-accent-color);

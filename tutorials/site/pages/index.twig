@@ -3,14 +3,26 @@
 {% block title %}<title>Kevin's Linux & Radio Tutorials</title>{% endblock %}
 
 {% block content %}
-
 <section>
+  <h3>HowTo's and Walkthroughs</h3>
+  <div class="flex">
+    <div>
+      <img src="/img/open-book.png">
+    </div>
+    <div class="stretch">
+      <p>Hello and welcome to Kevin's Linux and Radio Tutorials! Here you'll find walkthroughs for things like setting up a webserver, turning a raspberry pi into a white-noise machine, and listening to amateur radio with an sdr.</p>
+      <p>Please take a look around and browse some of the tags to see the most recent articles.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h3>Recent Tags and Tutorials</h3>
   <ul>
     {% for tag in tags %}
     <li>
       <a href="/tags/{{ tag.tag|lower }}" title="{{ tag.tag }} Tutorials">#{{ tag.tag }}</a>
       <ul>
-      {% for tutorial in tag.tutorials %}
+      {% for tutorial in tag.tutorials|slice(0, 3) %}
         <li>
           <a href="/{{ tutorial.folder }}/{{ tutorial.page }}">{{ tutorial.title }}</a>
         </li>

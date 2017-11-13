@@ -3,8 +3,8 @@
 {% set title = '#' ~ tag %}
 
 {% block content %}
-<a href="/tags/{{ tag|lower }}" title="{{ tag }} Tutorials"><h3>#{{ tag }}</h3></a>
 <section>
+  <a href="/tags/{{ tag|lower }}" title="{{ tag }} Tutorials"><h3>#{{ tag }} Tutorials</h3></a>
   <ul>
     {% for tutorial in tutorials %}
     <li>

@@ -10,6 +10,7 @@ var minifyHTML = require('gulp-htmlmin');
 var sequence = require('run-sequence');
 var fs = require('fs');
 var argv = require('yargs').argv;
+var sitemap = require('gulp-sitemap');
 
 var prod = argv.production ? true : false;
 
@@ -59,10 +60,22 @@ gulp.task('stuff', function(cb) {
     .pipe(gulp.dest('www/dist'));
 });
 
+gulp.task('sitemap', function(cb) {
+  var stream = gulp.src('www/dist/**/*.html', {
+    read: false
+  })
+  .pipe(sitemap({
+    siteUrl: 'https://www.kevashcraft.com'
+  }))
+  .pipe(gulp.dest('www/dist'))
+  
+  return stream
+})
+
 gulp.task('all', ['site', 'styles', 'scripts', 'stuff'])
 
 gulp.task('default', ['clean'], function () {
-  gulp.start('all')
+  sequence('all', 'sitemap')
 })
 
 gulp.task('watch', ['default'], function() {

@@ -3,8 +3,8 @@
 {% set title = folder.folderName %}
 
 {% block content %}
-<h3>{{ folder.folderName }}</h3>
 <section>
+  <a href="/{{ folder.folder }}/" title="{{ folder.folderName }} Tutorials"><h3>{{ folder.folderName }} Tutorials</h3></a>
   <ul>
     {% for tutorial in folder.tutorials %}
     <li>

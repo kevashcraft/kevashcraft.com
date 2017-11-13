@@ -76,13 +76,22 @@ html {
       }
       img {
         margin: 1em 0.5em;
-        width: 150px;
-        height: 150px;
+        max-width: 150px;
+        max-height: 150px;
+      }
+      img.large {
+        max-width: 300px;
+        max-height: 300px;
       }
       section {
         clear: both;
       }
-
+      ul {
+        margin: 15px 45px;
+      }
+      ul ul {
+        margin: 5px 15px 15px;
+      }
 
       /* Global classes */
       .accent {
@@ -104,6 +113,7 @@ html {
       .flex {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
 
         &.around {
           align-items: center;
@@ -116,7 +126,7 @@ html {
           flex: 2;
         }
       }
-      
+
       .stacked {
         display: flex;
         flex-direction: column;
