@@ -13,6 +13,7 @@ var fs = require('fs');
 var argv = require('yargs').argv;
 var mergeStream = require('merge-stream');
 var rename = require('gulp-rename');
+var sitemap = require('gulp-sitemap');
 
 var prod = argv.production ? true : false;
 
@@ -204,10 +205,22 @@ gulp.task('stuff', function(cb) {
     .pipe(gulp.dest('tutorials/dist'));
 });
 
+gulp.task('sitemap', function(cb) {
+  var stream = gulp.src('tutorials/dist/**/*.html', {
+    read: false
+  })
+  .pipe(sitemap({
+    siteUrl: 'https://tutorials.kevashcraft.com'
+  }))
+  .pipe(gulp.dest('tutorials/dist'))
+  
+  return stream
+})
+
 gulp.task('all', ['site', 'styles', 'scripts', 'stuff', 'tags', 'folders'])
 
-gulp.task('default', ['clean'], function () {
-  gulp.start('all')
+gulp.task('default', ['clean'], function (cb) {
+  sequence('all', 'sitemap')
 })
 
 gulp.task('watch', ['default'], function() {
