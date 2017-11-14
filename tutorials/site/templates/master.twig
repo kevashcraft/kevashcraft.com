@@ -37,9 +37,16 @@
   {% block foot %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo+2">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    {#<link rel="stylesheet" href="/submodules/code-prettify/src/prettify.css">#}
     <link rel="stylesheet" type="text/css" href="/styles/master.css">
-    <script type="text/javascript" src="/scripts/master.js"></script>
+    {#<script src="/submodules/code-prettify/src/prettify.js"></script>#}
+    <script src="/scripts/master.js"></script>
   {% endblock %}
   {% block toe %}
+    {#<script>#}
+    {#  (function() {#}
+    {#    PR.prettyPrint()#}
+    {#  })()#}
+    {#</script>#}
   {% endblock %}
 </html>

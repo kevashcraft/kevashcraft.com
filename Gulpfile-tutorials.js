@@ -201,7 +201,7 @@ gulp.task('scripts', function(cb) {
 });
 
 gulp.task('stuff', function(cb) {
-  return gulp.src(['tutorials/stuff/**/*', 'tutorials/stuff/**/.*'])
+  return gulp.src(['tutorials/stuff/**/*', 'tutorials/stuff/**/.*', '*submodules/code-prettify/src/prettify.*'])
     .pipe(gulp.dest('tutorials/dist'));
 });
 

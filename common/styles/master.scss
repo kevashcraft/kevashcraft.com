@@ -53,11 +53,6 @@ html {
           color: $text-accent-color;
         }
       }
-      h1, h2, h3 {
-        font-family: $header-font-family;
-        font-size: 1.8em;
-        font-weight: bold;
-      }
       h1, h2, h3, h4, h5 {
         a {
           border: none;
@@ -67,11 +62,21 @@ html {
           }
         }
       }
+      h1, h2, h3 {
+        font-family: $header-font-family;
+        font-size: 1.8em;
+        font-weight: bold;
+      }
       h1, h2 {
         a {
           &:hover {
             color: $text-accent-color;
           }
+        }
+      }
+      h3, h4, h5 {
+        a, a:visited {
+          color: $text-accent-color;
         }
       }
       h1 {
@@ -84,12 +89,14 @@ html {
       h3 {
         font-size: 1.1em;
         color: $text-accent-color;
+        margin: 0 1em;
         clear: both;
       }
       h4 {
         font-size: 1.1em;
         font-weight: bold;
         color: $text-accent-color;
+        margin: 0 1em;
         clear: both;
         a {
           color: $text-accent-color;
@@ -98,7 +105,6 @@ html {
       h5 {
         font-size: 1em;
         font-weight: bold;
-        color: $text-accent-color;
         clear: both;
       }
       img {
@@ -155,7 +161,7 @@ html {
       }
       
       .indent {
-        margin: 45px 115px;
+        margin: 115px;
       }
 
       .stacked {

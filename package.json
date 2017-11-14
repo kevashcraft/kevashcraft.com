@@ -38,6 +38,7 @@
     "gulp-twig": "^0.7.0",
     "gulp-vulcanize": "^6.1.0",
     "merge-stream": "^1.0.1",
+    "prism": "^4.1.2",
     "run-sequence": "^2.2.0",
     "twig-markdown": "^0.1.2",
     "yargs": "^8.0.2"

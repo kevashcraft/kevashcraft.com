@@ -1,5 +1,13 @@
 [
   {
+    "title":"Configure CentOS 7.4",
+    "folder":"centos-7.4",
+    "page":"basic-configuration",
+    "date":"2017-11-13 15:14:00",
+    "tags":[
+      "LinuxAdmin", "DevOps"
+    ]
+  }, {
     "title":"Install CentOS 7.4",
     "folder":"centos-7.4",
     "page":"installation",

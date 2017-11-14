@@ -1,11 +1,13 @@
+@import "../../common/styles/config.scss";
 @import "../../common/styles/master.scss";
-@import "../../common/lib/reset.scss";
-@import "../../common/config.scss";
+@import "config.scss";
 
 // Tutorials styles
 html {
   body {
     main {
+      code {
+      }
       .code, .command, .snippet {
         background: $code-background-color;
         color: $code-text-color;
