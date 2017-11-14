@@ -161,7 +161,7 @@ html {
       }
       
       .indent {
-        margin: 115px;
+        margin: 65px 115px;
       }
 
       .stacked {
@@ -239,6 +239,19 @@ html {
         margin: 1em auto;
         clear: both;
         max-height: 125px;
+      }
+      img.symbol {
+        margin: 2em 0 0;
+        max-width: 65px;
+        max-height: 65px;
+      }
+      
+      p.em {
+        margin: 2em 3em;
+        font-weight: 400;
+        border: 2px solid black;
+        border-radius: 4px;
+        padding: 2em;
       }
 
       > footer {

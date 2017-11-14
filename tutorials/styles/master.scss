@@ -7,12 +7,76 @@ html {
   body {
     main {
       code {
+        background: lighten($code-background-color, 50%);
+        color: $code-text-color;
+        font-family: Courier;
+        font-size: 0.8em;
+        padding: 1px 10px;
+        border-radius: 3px;
+
+        &.block {
+          display: block;
+          white-space: pre-white;
+        }
       }
+      
+      
+      div.snippet {
+        .filename {
+          color: darken($code-text-color, 15%);
+          em {
+            color: darken($note-bright-color, 25%);
+          }
+        }
+        .description {
+          color: invert($text-primary-color);
+          font-weight: 600;
+        }
+        .note {
+          color: $note-bright-color;
+        }
+        pre {
+          border-top: 1px dashed $code-text-color;
+          padding: 15px;
+          
+          span {
+            color: darken($code-text-color, 25%);
+            em {
+              color: darken($note-bright-color, 25%);
+            }
+          }
+          em {
+            color: $note-bright-color;
+          }
+        }
+        
+        &.one-line {
+          pre {
+            border: none;
+          }
+        }
+      }
+      
       .code, .command, .snippet {
         background: $code-background-color;
         color: $code-text-color;
+        font-family: Courier;
+        font-size: 0.8em;
+      }
+
+      div.code, div.command, div.snippet {
+        margin: 35px;
         padding: 2px 15px;
+        border-radius: 5px;
         whitespace: pre;
+      }
+      span.code, span.command, span.snippet {
+        // display: inline-block;
+        margin: 3px;
+        padding: 1px 10px;
+        border-radius: 3px;
+        background: lighten($code-background-color, 50%);
+        color: $text-primary-color;
       }
 
     }
