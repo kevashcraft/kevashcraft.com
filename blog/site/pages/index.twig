@@ -2,8 +2,10 @@
 
 {% block title %}<title>Kevin's Blog</title>{% endblock %}
 
-{% block content %}
-  {% for blog in blogs %}
-    {% include 'partials/blog_entry.twig' %}
-  {% endfor %}
-{% endblock %}
+<article>
+  {% block content %}
+    {% for blog in blogs %}
+      {% include 'templates/blog_snippet.twig' %}
+    {% endfor %}
+  {% endblock %}
+</article>

@@ -13,12 +13,15 @@ html {
     > main {
       /* Site header */
       > header {
-        margin: 0.5em 0 2em 0;
+        display: block;
+        max-width: $site-width;
+        padding: 1em 3em;
+        margin: 0 auto;
       }
       
       > article {
         display: block;
-        max-width: 1200px;
+        max-width: $side-width;
         padding: 1em 3em;
         margin: 0 auto;
         /* Standard section */

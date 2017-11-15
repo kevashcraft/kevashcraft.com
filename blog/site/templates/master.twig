@@ -8,27 +8,32 @@
 
   <link rel="canonical" href="https://blog.kevashcraft.com">
   <link rel="author" href="https://plus.google.com/+KevinAshcraft">
+  <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
+  <link rel="shortcut icon" sizes="196x196" href="/favicons/favicon-196.png">
+  <link rel="apple-touch-icon-precomposed" href="/favicons/favicon-152.png">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="/favicons/favicon-144.png">
+  <meta name="application-name" content="Kevin Ashcraft">
+  <meta name="msapplication-tooltip" content="Tooltip">
+  <meta name="msapplication-config" content="/ieconfig.xml">
 
   {% if site.production %}
     {% include 'partials/google_analytics.twig' %}
   {% endif %}
 </head>
 <body>
-  <header>
-    <h1><a href="https://www.kevashcraft.com" target="_blank" rel="noopener">Kevin's</a> <a href="https://blog.kevashcraft.com">Blog</a></h1>
-{#     <nav>
-      <ul>
-        <li>Previous</li>
-        <li>Next</li>
-      </ul>
-    </nav>
-    <button></button> #}
-  </header>
   <main>
+    {% block header %}
+      {% include 'partials/header.twig' %}
+    {% endblock %}
     {% block content %}{% endblock %}
+    {% block footer %}
+      {% include 'partials/footer.twig' %}
+    {% endblock %}
   </main>
 </body>
-  {% block footer %}
+  {% block foot %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo+2">
     <link rel="stylesheet" type="text/css" href="/styles/master.css">
     <script type="text/javascript" src="/scripts/master.js"></script>
   {% endblock %}

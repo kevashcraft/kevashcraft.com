@@ -13,10 +13,27 @@ var fs = require('fs');
 var argv = require('yargs').argv;
 var mergeStream = require('merge-stream');
 var rename = require('gulp-rename');
+var moment = require('moment')
 
 var prod = argv.production ? true : false;
 
+var site_url = prod ? 'https://blog.kevashcraft.com/' : 'http://dev.blog.kevashcraft.com/'
+
 var blogs = JSON.parse(fs.readFileSync('blog/blogs.json'))
+
+blogs.forEach(function(blog) {
+  var mDate = moment(blog.date, 'YYYY-MM-DD HH:mm:ss')
+  blog.year = mDate.format('YYYY')
+  blog.safe = blog.title.replace(/[^\W -]/g, '')
+  blog.unds = blog.title.toLowerCase().replace(/( |-)/g , '_')
+  blog.dash = blog.title.toLowerCase().replace(/( |_)/g , '-')
+  blog.slug = blog.year + '_' + blog.unds
+  blog.file = blog.year + '/' + blog.unds + '.twig'
+  blog.snip = blog.year + '/' + blog.unds + '_snippet.twig'
+  blog.page = blog.dash
+  blog.url = blog.year + '/' + blog.page
+  
+})
 
 blogs.sort(function (a, b) {
   if (a.order) {
@@ -39,6 +56,7 @@ blogs.sort(function (a, b) {
 var data = {
   site: {
     production: prod,
+    url: site_url
   },
   blogs: blogs,
 }
