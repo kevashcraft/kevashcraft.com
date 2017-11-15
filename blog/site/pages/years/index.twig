@@ -23,7 +23,7 @@
         <ul class="post-list">
           {% for blog in year.blogs %}
           <li>
-            <span>{{ blog.date|date("M jS, 'y") }}</span> - <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+            <span>{{ blog.date|date("M jS") }}</span> - <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
           </li>
           {% endfor %}
         </ul>

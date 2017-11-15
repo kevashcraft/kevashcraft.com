@@ -1,15 +1,25 @@
 {% extends 'templates/master.twig' %}
 
-{% set title = year.year %}
+{% set title = year.year ~ ' Posts'%}
 
 {% block content %}
 <article>
   <section>
+    <div class="flex">
+      <div>
+        <img src="/img/calendar.png" alt="calendar icon">
+      </div>
+      <div class="stretch">
+        <p>These are all of my blog posts for {{ year.year}}, sorted by most recent.</p>
+      </div>
+    </div>
+  </section>
+  <section>
     <a href="/{{ year.year }}/" title="{{ year.year }} Articles"><h3>{{ year.year }} Articles</h3></a>
-    <ul>
+    <ul class="post-list">
       {% for blog in year.blogs %}
       <li>
-        <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+        <span>{{ blog.date|date("M jS") }}</span> - <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
       </li>
       {% endfor %}
     </ul>
