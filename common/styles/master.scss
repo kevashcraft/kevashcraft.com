@@ -2,6 +2,7 @@
 
 html {
   height: 100%;
+  font-size: $site-font-size;
 
   > body {
     min-height: 100%;
@@ -107,11 +108,22 @@ html {
         a {
           color: $text-accent-color;
         }
+        &.small {
+          margin: 0 2em;
+          font-size: 0.6em;
+          line-height: 1em;
+        }
       }
       h5 {
         font-size: 1em;
         font-weight: bold;
         clear: both;
+        margin: 1em 2em;
+      }
+      h1, h2, h3, h4, h5 {
+        &.black, &.black a {
+          color: $text-primary-color;
+        }
       }
       img {
         margin: 1em 0.5em;

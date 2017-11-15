@@ -6,6 +6,18 @@
 html {
   > body {
     > main {
+      article {
+        section {
+          padding-top: 2em;
+        }
+      }
+        
+      .blog-list {
+        span {
+          font-size: 0.8em;
+          line-height: 1em;
+        }
+      }
       .read-more {
         text-align: right;
         padding-right: 75px;
