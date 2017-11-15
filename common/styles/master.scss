@@ -53,6 +53,9 @@ html {
           color: $text-accent-color;
         }
       }
+      form {
+        margin: 0 auto;
+      }
       h1, h2, h3, h4, h5 {
         a {
           border: none;
@@ -116,6 +119,10 @@ html {
         max-width: 300px;
         max-height: 300px;
       }
+      label {
+        font-size: 0.6em;
+        font-weight: 600;
+      }
       section {
         clear: both;
       }
@@ -162,6 +169,27 @@ html {
       
       .indent {
         margin: 65px 115px;
+      }
+
+      .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        div {
+          position: relative;
+          margin: 1em;
+          text-align: center;
+          label {
+            display: block;
+            text-align: left;
+            height: 2em;
+          }
+        }
+        textarea {
+          width: 250px;
+          height: 200px;
+        }
       }
 
       .stacked {
@@ -224,12 +252,33 @@ html {
         }
       }
 
+      .w25 {
+        width: 250px;
+      }
+
       /* Element classes */
       div.float-right {
         margin: 1em 0.5em;
       }
       div.float-left {
         margin: 1em 0.5em;
+      }
+
+      form.contact {
+        input {
+          font-size: 1.1em;
+          width: 250px;
+        }
+        button {
+          padding: 0.8em;
+          font-size: 1.4em;
+          color: $text-accent-color;
+          transition: color .3s ease;
+          &:hover {
+            color: #fff;
+            cursor: pointer;
+          }
+        }
       }
 
       img.section-header {
