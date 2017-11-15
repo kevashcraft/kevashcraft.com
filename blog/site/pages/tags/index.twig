@@ -1,0 +1,17 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Hashtags' %}
+
+{% block content %}
+<article>
+  <section>
+    <ul>
+      {% for tag in tags %}
+      <li>
+        <a href="/tags/{{ tag.tag|lower }}" title="{{ tag.tag }} Posts">{{ tag.tag }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</article>
+{% endblock %}

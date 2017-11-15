@@ -1,0 +1,18 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = year.year %}
+
+{% block content %}
+<article>
+  <section>
+    <a href="/{{ year.year }}/" title="{{ year.year }} Articles"><h3>{{ year.year }} Articles</h3></a>
+    <ul>
+      {% for blog in year.blogs %}
+      <li>
+        <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</article>
+{% endblock %}

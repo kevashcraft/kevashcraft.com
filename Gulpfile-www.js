@@ -56,7 +56,7 @@ gulp.task('scripts', function(cb) {
 });
 
 gulp.task('stuff', function(cb) {
-  return gulp.src(['www/stuff/**/*', 'www/stuff/**/.*', '*node_modules/font-awesome/css/**/*', '*node_modules/font-awesome/fonts/**/*'])
+  return gulp.src(['www/stuff/**/*', 'www/stuff/**/.*', 'common/stuff/**/*', '*node_modules/font-awesome/css/**/*', '*node_modules/font-awesome/fonts/**/*'])
     .pipe(gulp.dest('www/dist'));
 });
 

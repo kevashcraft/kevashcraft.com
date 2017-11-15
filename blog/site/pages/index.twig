@@ -2,10 +2,21 @@
 
 {% block title %}<title>Kevin's Blog</title>{% endblock %}
 
+{% block content %}
 <article>
-  {% block content %}
-    {% for blog in blogs %}
-      {% include 'templates/blog_snippet.twig' %}
-    {% endfor %}
-  {% endblock %}
+  <section>
+    <h3>Kevin's Blog</h3>
+    <div class="flex">
+      <div>
+        <p>Hey, welcome to my blog!</p>
+        <p>This is a site for misc. articles and thoughts that I'd like to publish in addition to <a href="https://tutorials.kevashcraft.com" title="Kevin's Linux & Radio Tutorials">my tutorials</a> and <a href="https://www.kevashcraftcom" title="Kevin Ashcraft's Website">homepage</a>.</p>
+        <p>Thanks for visiting and I hope you find something interesting!</p>
+      </div>
+    </div>
+  </section>
+  <h3 class="black">--Recent Posts</h3>
+  {% for blog in blogs %}
+    {% include 'templates/blog_snippet.twig' %}
+  {% endfor %}
 </article>
+{% endblock %}

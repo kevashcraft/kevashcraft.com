@@ -1,9 +1,12 @@
 <section id="{{ blog.slug }}">
   <header>
-    <h2><a href="{{ site.url }}{{ blog.url }}">{{ blog.title }}</a></h2>
+    <h4><a href="{{ site.url }}{{ blog.url }}">{{ blog.title }}</a></h4>
     <small>{{ blog.date|date('l, F jS, Y - g:i a') }}</small>
   </header>
   <div class="snippet">
     {% include 'blogs/' ~ blog.snip %}
+  </div>
+  <div class="read-more">
+    <a href="{{ site.url }}{{ blog.url }}" title="{{ blog.title }}">Keep reading..</a>
   </div>
 </section>

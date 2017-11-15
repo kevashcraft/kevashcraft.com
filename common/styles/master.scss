@@ -21,7 +21,7 @@ html {
       
       > article {
         display: block;
-        max-width: $side-width;
+        max-width: $site-width;
         padding: 1em 3em;
         margin: 0 auto;
         /* Standard section */
@@ -139,6 +139,9 @@ html {
       /* Global classes */
       .accent {
         color: $text-accent-color;
+      }
+      .black {
+        color: $text-primary-color;
       }
       .clear {
         clear: both;

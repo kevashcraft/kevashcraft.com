@@ -1,0 +1,25 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = '404 Page Not Found' %}
+
+{% block content %}
+<article>
+  <section>
+    <h3>404 Page Not Found</h3>
+    <div class="flex">
+      <div>
+        <img src="/img/404.png" class="large">
+      </div>
+      <div class="stretch">
+        <p>The requested page could not be found.</p>
+        <p>Please check the url or <a href="/" title="Kevin's Blog"><strong>go home</strong></a>.</p>
+      </div>
+    </div>
+  </section>
+</article>
+<script>
+  setTimeout(function() {
+    window.location = '/'
+  }, 3500)
+</script>
+{% endblock %}
