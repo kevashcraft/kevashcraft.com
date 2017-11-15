@@ -256,13 +256,13 @@ gulp.task('stuff', function(cb) {
 });
 
 gulp.task('sitemap', function(cb) {
-  var stream = gulp.src('tutorials/dist/**/*.html', {
+  var stream = gulp.src('blog/dist/**/*.html', {
     read: false
   })
   .pipe(sitemap({
-    siteUrl: 'https://tutorials.kevashcraft.com'
+    siteUrl: 'https://blog.kevashcraft.com'
   }))
-  .pipe(gulp.dest('tutorials/dist'))
+  .pipe(gulp.dest('blog/dist'))
   
   return stream
 })

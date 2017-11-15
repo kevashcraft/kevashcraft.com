@@ -103,6 +103,7 @@ var data = {
     production: prod,
   },
   tutorials: tutorials,
+  folders: folders,
   tags: tags,
 }
 

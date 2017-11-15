@@ -210,6 +210,12 @@ html {
         }
       }
 
+      .post-list {
+        span {
+          font-size: 0.8em;
+          line-height: 1em;
+        }
+      }
       .stacked {
         display: flex;
         flex-direction: column;

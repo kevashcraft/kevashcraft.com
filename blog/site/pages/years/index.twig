@@ -20,7 +20,7 @@
       {% for year in years %}
       <li>
         <a href="/{{ year.year }}" title="{{ year.year }} Posts">{{ year.year }}</a>
-        <ul class="blog-list">
+        <ul class="post-list">
           {% for blog in year.blogs %}
           <li>
             <span>{{ blog.date|date("M jS, 'y") }}</span> - <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
