@@ -1,0 +1,141 @@
+{% extends 'templates/master.twig' %}
+
+{% block title %}<title>Kevin Ashcraft's Website</title>{% endblock %}
+
+{% block content %}
+<section>
+  <h3>Hello</h3>
+  <div class="flex">
+    <div>
+      <img class="standard float-left" src="https://avatars2.githubusercontent.com/u/3028329?s=400&u=dcfb092eb190f79411167d447b10b35dd22a9267&v=4">
+    </div>
+    <div class="stretch">
+      <p>My name is Kevin Ashcraft and I'm a computer programmer <strong>looking for a good team and an interesting project</strong>.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="flex center">
+    <div id="hat_titles" class="bl icon-margins">
+      <p data-index="2"><a href="#linux-administrator"><strong><i class="fa fa-server"></i>Linux Administrator</strong></a></p>
+      <p data-index="0"><a href="#database-administrator"><strong><i class="fa fa-database"></i>Database Administrator</strong></a></p>
+      <p data-index="1"><a href="#full-stack-developer"><strong><i class="fa fa-circle-o"></i>Full Stack Developer</strong></a></p>
+    </div>
+    <div class="flex center">
+      <canvas id="pie_chart"></canvas>
+    </div>
+  </div>
+</section>
+<section id="linux-administrator">
+  <h3 class="pb"><i class="fa fa-server"></i>Linux Administrator</h3>
+  <div class="flex">
+    <div class="stacked logos">
+      <img src="/img/centos_logo.png" alt="centos logo" title="CentOS">
+      <img src="/img/redhat_logo.png" alt="redhat linux logo" title="Red Hat">
+      <img src="/img/ubuntu_logo.png" alt="ubuntu linux logo" title="Ubuntu">
+    </div>
+    <div class="stretch">
+      <p>I am a Linux administrator with <strong>experience in server management and orchestration</strong> focused on security, automation, and conformity.</p>
+    </div>
+  </div>
+</section>
+<section id="database-administrator">
+  <h3 class="pb"><i class="fa fa-database"></i>Database Administrator</h3>
+  <div class="flex">
+    <div class="stacked logos">
+      <img src="/img/postgres_logo.png" alt="postgresql logo" title="PostgreSQL">
+      <img src="/img/mysql-mariadb_logo.png" alt="mysql/mariadb logo" title="MariaDB">
+      <img src="/img/mongo_logo.png" alt="mongodb logo" title="MongoDB">
+    </div>
+    <div class="stretch">
+      <p>I am a database administrator <strong>experienced with relational and noSQL style</strong> servers in a production environment.</p>
+    </div>
+  </div>
+  <div class="flex center">
+    <div class="tab-container">
+      <ul>
+        <li>
+          <a data-tab="software">Software</a>
+        </li>
+        <li class="active">
+          <a data-tab="projects">Projects</a>
+        </li>
+        <li>
+          <a data-tab="accomplishments">Accomplishments</a>
+        </li>
+      </ul>
+      <div>
+        <div data-tab="software">
+          <ul>
+            <li>PostgreSQL</li>
+            <li>MySQL/MariaDB</li>
+            <li>MongoDB</li>
+            <li>Cassandra*</li>
+            <li>Microsoft Access*</li>
+            <li>Redis*</li>
+          </ul>
+        </div>
+        <div data-tab="projects" class="active">
+          <ul>
+            <li>Migrate MS Access to Postgres</li>
+            <li>Migrate MySQL to Postgres</li>
+          </ul>
+        </div>
+        <div data-tab="accomplishments">
+          <ul>
+            <li>Design/Maintain MongoDB sharded cluster</li>
+            <li>Enhance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="full-stack-developer">
+  <h3 class="pb"><i class="fa fa-circle-o"></i>Full Stack Developer</h3>
+  <div class="flex">
+    <div class="stretch">
+      <p>I am a full stack developer interested in creating <strong>reliable, user friendly applications</strong> with modern tools and practices.</p>
+    </div>
+  </div>
+</section>
+<section id="contact-me">
+  <h3 class="pb"><i class="fa fa-share"></i>Contact Me</h3>
+  <div class="flex">
+    <div class="stretch">
+      <p>Do you have (or want to build) a great team and an interesting project?</p>
+    </div>
+  </div>
+  <div class="flex">
+    <div class="stretch">
+      <p>Email me at <a href="mailto:hire@kevashcraft.com">hire@kevashcraft.com</a> or use the form below.</p>
+    </div>
+  </div>
+  <div id="contact_message" style="display: none">
+    <p class="message">Thanks</p>
+  </div>
+  <form id="contact_form" class="contact">
+    <div class="input-container">
+      <div>
+        <label for="name_input">Name</label>
+        <input type="text" name="name" id="name_input" placeholder="Cool Cat">
+      </div>
+      <div>
+        <label for="email_input">Email</label>
+        <input type="email" name="email" id="email_input" placeholder="oreo@icanhaz.com">
+      </div>
+    </div>
+    <div class="input-container">
+      <div>
+        <label for="message_input" class="textarea">Message</label>
+        <textarea name="message" id="message" placeholder="Have a nice day!"></textarea>
+      </div>
+    </div>
+    <div class="flex around">
+      <div class="right-align w450">
+        <button>Send</button>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock %}
