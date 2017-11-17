@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% block title %}
+    <title>{{ title }} | Kevin Ashcraft</title>
+  {% endblock %}
+  <meta charset="utf-8">
+  <meta name="author" content="Kevin Ashcraft">
+  <meta name="description" content="I'm Kevin Ashcraft, a computer programmer and amateur radio operator (KM4FPA) in Auburndale, Florida. I like Linux and Radios :)">
+
+  <link rel="canonical" href="https://www.kevashcraft.com">
+  <link rel="author" href="https://plus.google.com/+KevinAshcraft">
+  <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
+  <link rel="shortcut icon" sizes="196x196" href="/favicons/favicon-196.png">
+  <link rel="apple-touch-icon-precomposed" href="/favicons/favicon-152.png">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="/favicons/favicon-144.png">
+  <meta name="application-name" content="Kevin Ashcraft">
+  <meta name="msapplication-tooltip" content="Tooltip">
+  <meta name="msapplication-config" content="/ieconfig.xml">
+
+  {%- if site.production %}
+  {% include 'partials/google_analytics.twig' %}
+  {%- endif %}
+</head>
+<body>
+  <main>
+    <article>
+      {% block header %}
+        {% include 'partials/header.twig' %}
+      {% endblock %}
+      {% block content %}{% endblock %}
+    </article>
+    {% block footer %}
+      {% include 'partials/footer.twig' %}
+    {% endblock %}
+  </main>
+</body>
+  {% block foot %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo+2">
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/master.css">
+
+    <script src="/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="/scripts/master.js"></script>
+  {% endblock %}
+  {% block toe %}
+  {% endblock %}
+</html>

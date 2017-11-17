@@ -221,12 +221,26 @@ html {
             display: block;
             text-align: left;
             height: 2em;
+            opacity: 0;
+            transition: opacity .3s ease;
+            &.active {
+              opacity: 1;
+            }
           }
         }
         textarea {
           width: 250px;
           height: 200px;
         }
+      }
+
+      .margin {
+        margin: 2em;
+      }
+
+      .margin-tb {
+        margin-top: 2em;
+        margin-bottom: 2em;
       }
 
       .post-list {
