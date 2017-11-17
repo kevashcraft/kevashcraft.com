@@ -98,6 +98,12 @@ html {
         color: $text-accent-color;
         margin: 0 1em;
         clear: both;
+        i {
+          margin-right: 10px;
+        }
+        &.pb {
+          padding-bottom: 25px;
+        }
       }
       h4 {
         font-size: 1.1em;
@@ -155,6 +161,10 @@ html {
       .black {
         color: $text-primary-color;
       }
+      .bl {
+        border-left: 1px solid black;
+        // padding-left: 25px;
+      }
       .clear {
         clear: both;
       }
@@ -177,6 +187,9 @@ html {
           align-items: center;
           justify-content: space-around;
         }
+        &.center {
+          justify-content: center;
+        }
         &.reverse {
           justify-content: flex-end;
         }
@@ -185,6 +198,12 @@ html {
         }
       }
       
+      .icon-margins {
+        i.fa {
+          margin-right: 1.5em;
+        }
+      }
+
       .indent {
         margin: 65px 115px;
       }

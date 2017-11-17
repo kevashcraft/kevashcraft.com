@@ -11,6 +11,21 @@ gulp.task('www', function () {
     }))
 })
 
+gulp.task('hire', function () {
+  gulp.src('Gulpfile-hire.js')
+    .pipe(chug({
+      args: [production],
+    }))
+})
+
+gulp.task('hire-watch', function () {
+  gulp.src('Gulpfile-hire.js')
+    .pipe(chug({
+      tasks: ['watch'],
+      args: ['--development'],
+    }))
+})
+
 gulp.task('www-watch', function () {
   gulp.src('Gulpfile-www.js')
     .pipe(chug({
