@@ -60,7 +60,7 @@ html {
       form {
         margin: 0 auto;
       }
-      h1, h2, h3, h4, h5 {
+      h1, h2, h3, h4, h5, div.h1 {
         a {
           border: none;
           transition: color .3s ease;
@@ -69,12 +69,12 @@ html {
           }
         }
       }
-      h1, h2, h3 {
+      h1, h2, h3, div.h1 {
         font-family: $header-font-family;
         font-size: 1.8em;
         font-weight: bold;
       }
-      h1, h2 {
+      h1, h2, div.h1 {
         a {
           &:hover {
             color: $text-accent-color;
@@ -86,7 +86,7 @@ html {
           color: $text-accent-color;
         }
       }
-      h1 {
+      h1, div.h1 {
         font-size: 1.8em;
       }
       h2 {
@@ -126,7 +126,7 @@ html {
         clear: both;
         margin: 1em 2em;
       }
-      h1, h2, h3, h4, h5 {
+      h1, h2, h3, h4, h5, div.h1 {
         &.black, &.black a {
           color: $text-primary-color;
         }
@@ -385,7 +385,7 @@ html {
         background: darken($text-accent-color, 15%);
         padding-top: 25px;
         
-        h1, h2, h3, h4, h5, p, a, a:visited {
+        h1, h2, h3, h4, h5, p, a, a:visited, div.h1 {
           color: invert($text-primary-color);
           span {
             transition: color .3s ease;
