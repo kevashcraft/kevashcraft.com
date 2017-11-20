@@ -5,11 +5,11 @@
 {% block content %}
 <article>
   <section>
-    <a href="/tags/{{ tag|lower }}" title="{{ tag }} Posts"><h3>#{{ tag }} Posts</h3></a>
+    <a href="/tags/{{ tag|lower }}/" title="{{ tag }} Posts"><h3>#{{ tag }} Posts</h3></a>
     <ul>
       {% for blog in blogs %}
       <li>
-        <a href="/{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+        <a href="/{{ blog.url }}/" title="{{ blog.title }}">{{ blog.title }}</a>
       </li>
       {% endfor %}
     </ul>
