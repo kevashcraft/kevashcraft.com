@@ -84,3 +84,11 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('hire/scripts/**/*.js', ['scripts']);
   gulp.watch('hire/site/**/*.twig', ['site']);
 });
+
+gulp.task('watch-styles', ['default'], function() {
+  gulp.watch('hire/styles/**/*.scss', ['styles']);
+});
+
+gulp.task('watch-scripts', ['default'], function() {
+  gulp.watch('hire/scripts/**/*.scss', ['scripts']);
+});
