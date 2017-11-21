@@ -88,6 +88,17 @@ html {
       }
       h1, div.h1 {
         font-size: 1.8em;
+        a {
+          span {
+            transition: color 0.3s ease;
+          }
+          &:hover {
+            color: $text-primary-color;
+            span {
+              color: invert($text-accent-color);
+            }
+          }
+        }
       }
       h2 {
         font-size: 0.8em;
@@ -392,6 +403,7 @@ html {
             color: invert($text-accent-color);
           }
           a:hover {
+            color: invert($text-primary-color);
             span {
               color: $text-accent-color;
             }
