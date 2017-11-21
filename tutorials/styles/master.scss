@@ -22,6 +22,7 @@ html {
       
       
       div.snippet {
+        overflow-x: auto;
         .filename {
           color: darken($code-text-color, 15%);
           em {

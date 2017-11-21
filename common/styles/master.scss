@@ -15,9 +15,11 @@ html {
       /* Site header */
       > header {
         display: block;
-        max-width: $site-width;
         padding: 1em 3em;
         margin: 0 auto;
+        @media screen and (max-width: $small) {
+          padding: 1em 0.1em;
+        }
       }
       
       > article {
@@ -254,6 +256,9 @@ html {
 
       .indent {
         margin: 65px 115px;
+        @media screen and (max-width: $small) {
+          margin: 0.5em 1em;
+        }
       }
 
       .margin {
