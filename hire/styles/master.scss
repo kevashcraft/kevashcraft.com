@@ -79,6 +79,10 @@ html {
 }
 
 #hat_titles {
+  border-left: 1px solid black;
+  @media screen and (max-width: $small) {
+    border-left: none;
+  }
   p {
     a {
       transition: all 0.1s ease;

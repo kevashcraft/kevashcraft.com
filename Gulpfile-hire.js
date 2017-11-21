@@ -86,9 +86,9 @@ gulp.task('watch', ['default'], function() {
 });
 
 gulp.task('watch-styles', ['default'], function() {
-  gulp.watch('hire/styles/**/*.scss', ['styles']);
+  gulp.watch(['hire/styles/**/*.scss', 'common/styles/**/*.scss'], ['styles']);
 });
 
 gulp.task('watch-scripts', ['default'], function() {
-  gulp.watch('hire/scripts/**/*.scss', ['scripts']);
+  gulp.watch(['hire/scripts/**/*.js', 'common/scripts/**/*.js'], ['scripts']);
 });

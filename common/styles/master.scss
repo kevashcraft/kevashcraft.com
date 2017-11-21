@@ -25,6 +25,7 @@ html {
         max-width: $site-width;
         padding: 1em 3em;
         margin: 0 auto;
+
         /* Standard section */
         section {
           margin: 1em 0.5em 3em;
@@ -36,8 +37,17 @@ html {
           p {
             margin: 1em 2em;
             font-size: 1em;
+            min-width: 5em;
           }
-        
+        }
+        @media screen and (max-width: $small) {
+          padding: 1em 0.1em;
+          section {
+            margin: 1em 0.1em;
+            p {
+              margin: 1em 0.1em;
+            }
+          }
         }
       }
 
@@ -115,6 +125,9 @@ html {
         &.pb {
           padding-bottom: 25px;
         }
+        @media screen and (max-width: $small) {
+          margin: 0;
+        }
       }
       h4 {
         font-size: 1.1em;
@@ -130,12 +143,18 @@ html {
           font-size: 0.6em;
           line-height: 1em;
         }
+        @media screen and (max-width: $small) {
+          margin: 0 0.5em;
+        }
       }
       h5 {
         font-size: 1em;
         font-weight: bold;
         clear: both;
         margin: 1em 2em;
+        @media screen and (max-width: $small) {
+          margin: 0.5em 1em;
+        }
       }
       h1, h2, h3, h4, h5, div.h1 {
         &.black, &.black a {
@@ -160,9 +179,15 @@ html {
       }
       ul {
         margin: 15px 45px;
+        @media screen and (max-width: $small) {
+          margin: 15px;
+        }
       }
       ul ul {
         margin: 5px 15px 15px;
+        @media screen and (max-width: $small) {
+          margin: 5px;
+        }
       }
 
       /* Global classes */
@@ -171,10 +196,6 @@ html {
       }
       .black {
         color: $text-primary-color;
-      }
-      .bl {
-        border-left: 1px solid black;
-        // padding-left: 25px;
       }
       .clear {
         clear: both;
@@ -207,6 +228,22 @@ html {
         .stretch {
           flex: 2;
         }
+
+        &.small-column {
+          @media screen and (max-width: $small) {
+            flex-direction: column;
+          }
+        }
+        &.small-column-r {
+          @media screen and (max-width: $small) {
+            flex-direction: column-reverse;
+          }
+        }
+
+      }
+
+      .flex-end {
+        justify-content: flex-end;
       }
       
       .icon-margins {
@@ -219,39 +256,20 @@ html {
         margin: 65px 115px;
       }
 
-      .input-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-        div {
-          position: relative;
-          margin: 1em;
-          text-align: center;
-          label {
-            display: block;
-            text-align: left;
-            height: 2em;
-            opacity: 0;
-            transition: opacity .3s ease;
-            &.active {
-              opacity: 1;
-            }
-          }
-        }
-        textarea {
-          width: 250px;
-          height: 200px;
-        }
-      }
-
       .margin {
         margin: 2em;
+        @media screen and (max-width: $small) {
+          margin: 1em;
+        }
       }
 
       .margin-tb {
-        margin-top: 2em;
+        margin-top: 1em;
         margin-bottom: 2em;
+        @media screen and (max-width: $small) {
+          margin-top: 0.5em;
+          margin-bottom: 1em;
+        }
       }
 
       .post-list {
@@ -265,6 +283,13 @@ html {
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
+
+        &.small-row {
+          @media screen and (max-width: $small) {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+        }
 
       }
 
@@ -338,23 +363,54 @@ html {
         margin: 1em 0.5em;
       }
 
-      form.contact {
-        input {
-          font-size: 1.1em;
-          width: 250px;
-          border-radius: 3px;
-          border: 1px inset;
-          padding: 0.2em;
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: stretch;
+        max-width: 850px;
+        margin: 2em;
+        @media screen and (max-width: $small) {
+          margin: 1em;
         }
-        textarea {
-          width: 500px;
-          border-radius: 3px;
-          border: 1px inset;
-          padding: 0.2em;
+        
+        > div {
+          display: flex;
+          justify-content: flex-start;
+          align-items: stretch;
+          flex-wrap: wrap;
+          > div {
+            flex-grow: 1;
+            position: relative;
+            margin: 1em;
+            text-align: center;
+            input, textarea {
+              font-size: 1em;
+              border-radius: 3px;
+              border: 1px inset;
+              width: 100%;
+              padding: 0.2em;
+            }
+            label {
+              display: block;
+              text-align: left;
+              height: 2em;
+              opacity: 0;
+              transition: opacity .3s ease;
+              &.active {
+                opacity: 1;
+              }
+            }
+          }
+        }
+        > div:last-of-type {
+          div {
+            text-align: right;
+          }
         }
         button {
           padding: 0.6em 0.8em;
-          font-size: 1.1em;
+          font-size: 1em;
           color: $text-accent-color;
           transition: color .3s ease, background 0.3s ease;
           border-radius: 8px;
@@ -418,10 +474,14 @@ html {
 
           > div {
             display: flex;
+            min-width: 7em;
             max-width: 33%;
             margin: 25px;
             flex-direction: column;
             justify-content: space-between;
+            @media screen and (max-width: $small) {
+              max-width: initial;
+            }
           }
         }
         > div:last-of-type {

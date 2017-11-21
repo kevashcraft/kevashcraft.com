@@ -117,7 +117,7 @@ for (var i = 0; i < tabContainers.length; i++) {
 }
 
 // input labels show
-Array.prototype.forEach.call(document.querySelectorAll('.input-container input, .input-container textarea'), function(el) {
+Array.prototype.forEach.call(document.querySelectorAll('.contact-form input, .contact-form textarea'), function(el) {
   el.addEventListener('input', function() {
     if (this.value.length > 0) {
       var label = document.querySelector('label:not(.active)[for="' + this.id + '"]')

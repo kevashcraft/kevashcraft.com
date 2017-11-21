@@ -39,3 +39,21 @@ window.KA = {
 }
 
 KA.init()
+
+
+// input labels show
+Array.prototype.forEach.call(document.querySelectorAll('.contact-form input, .contact-form textarea'), function(el) {
+  el.addEventListener('input', function() {
+    if (this.value.length > 0) {
+      var label = document.querySelector('label:not(.active)[for="' + this.id + '"]')
+      if (label) {
+        label.classList.add('active')
+      }
+    } else {
+      var label = document.querySelector('label.active[for="' + this.id + '"]')
+      if (label) {
+        label.classList.remove('active')
+      }
+    }
+  })
+})
