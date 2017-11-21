@@ -18,7 +18,7 @@
   <ul class="post-list">
     {% for tutorial in folder.tutorials %}
     <li>
-      <span>{{ tutorial.date|date("M jS, 'y") }}</span> - <a href="/{{ folder.folder }}/{{ tutorial.page }}" title="{{ tutorial.title }}">{{ tutorial.title }}</a>
+      <span>{{ tutorial.date|date("M jS, 'y") }}</span> - <a href="/{{ folder.folder }}/{{ tutorial.page }}/" title="{{ tutorial.title }}">{{ tutorial.title }}</a>
     </li>
     {% endfor %}
   </ul>
