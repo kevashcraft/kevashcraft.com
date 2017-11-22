@@ -64,6 +64,6 @@ gulp.task('tutorials-watch', function () {
     }))
 })
 
-gulp.task('default', ['www', 'blog', 'tutorials'])
+gulp.task('default', ['www', 'blog', 'tutorials', 'hire'])
 
 gulp.task('watch', ['www-watch', 'blog-watch', 'tutorials-watch'])

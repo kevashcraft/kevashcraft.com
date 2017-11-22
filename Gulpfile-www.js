@@ -18,12 +18,19 @@ gulp.task('clean', function(cb) {
   return del('www/dist');
 });
 
+var data = {
+  site: {
+    production: prod,
+  }
+}
+
 // twig rendering
 gulp.task('site', function() {
   'use strict';
   var stream = gulp.src('www/site/pages/**/*.twig')
     .pipe(twig({
       errorLogToConsole: true,
+      data: data,
       base: 'www/site',
     }))
     .pipe(gulpif(prod, minifyHTML({

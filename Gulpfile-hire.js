@@ -18,12 +18,20 @@ gulp.task('clean', function(cb) {
   return del('hire/dist');
 });
 
+
+var data = {
+  site: {
+    production: prod,
+  }
+}
+
 // twig rendering
 gulp.task('site', function() {
   'use strict';
   var stream = gulp.src('hire/site/pages/**/*.twig')
     .pipe(twig({
       errorLogToConsole: true,
+      data: data,
       base: 'hire/site',
     }))
     .pipe(gulpif(prod, minifyHTML({

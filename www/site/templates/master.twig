@@ -20,9 +20,9 @@
   <meta name="msapplication-tooltip" content="Tooltip">
   <meta name="msapplication-config" content="/ieconfig.xml">
 
-  {%- if site.production %}
-  {% include 'partials/google_analytics.twig' %}
-  {%- endif %}
+  {% if site.production %}
+    {% include 'partials/google_analytics.twig' %}
+  {% endif %}
 </head>
 <body>
   <main>
