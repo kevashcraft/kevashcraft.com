@@ -241,7 +241,11 @@ html {
             flex-direction: column-reverse;
           }
         }
-
+      }
+      .flex-columns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .flex-end {
@@ -353,6 +357,70 @@ html {
         }
       }
 
+      .contact-form {
+        .contact-message {
+          display: none;
+          vertical-align: middle;
+          font-size: 36px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+
+      .fw-100 {
+        font-weight: 100;
+      }
+      .fw-200 {
+        font-weight: 200;
+      }
+      .fw-300 {
+        font-weight: 300;
+      }
+      .fw-400 {
+        font-weight: 400;
+      }
+      .fw-500 {
+        font-weight: 500;
+      }
+      .fw-600 {
+        font-weight: 600;
+      }
+      .fw-700 {
+        font-weight: 700;
+      }
+      .fw-800 {
+        font-weight: 800;
+      }
+      .o-1 {
+        opacity: 0.1;
+      }
+      .o-2 {
+        opacity: 0.2;
+      }
+      .o-3 {
+        opacity: 0.3;
+      }
+      .o-4 {
+        opacity: 0.4;
+      }
+      .o-5 {
+        opacity: 0.5;
+      }
+      .o-6 {
+        opacity: 0.6;
+      }
+      .o-7 {
+        opacity: 0.7;
+      }
+      .o-8 {
+        opacity: 0.8;
+      }
+      .o-9 {
+        opacity: 0.9;
+      }
+      .o-10 {
+        opacity: 1.0;
+      }
       .w250 {
         width: 250px;
       }
@@ -366,65 +434,6 @@ html {
       }
       div.float-left {
         margin: 1em 0.5em;
-      }
-
-      .contact-form {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-content: stretch;
-        max-width: 850px;
-        margin: 2em;
-        @media screen and (max-width: $small) {
-          margin: 1em;
-        }
-        
-        > div {
-          display: flex;
-          justify-content: flex-start;
-          align-items: stretch;
-          flex-wrap: wrap;
-          > div {
-            flex-grow: 1;
-            position: relative;
-            margin: 1em;
-            text-align: center;
-            input, textarea {
-              font-size: 1em;
-              border-radius: 3px;
-              border: 1px inset;
-              width: 100%;
-              padding: 0.2em;
-            }
-            label {
-              display: block;
-              text-align: left;
-              height: 2em;
-              opacity: 0;
-              transition: opacity .3s ease;
-              &.active {
-                opacity: 1;
-              }
-            }
-          }
-        }
-        > div:last-of-type {
-          div {
-            text-align: right;
-          }
-        }
-        button {
-          padding: 0.6em 0.8em;
-          font-size: 1em;
-          color: $text-accent-color;
-          transition: color .3s ease, background 0.3s ease;
-          border-radius: 8px;
-          &:hover {
-            color: #fff;
-            cursor: pointer;
-            background: darken($text-accent-color, 25%);
-          }
-        }
       }
 
       img.section-header {

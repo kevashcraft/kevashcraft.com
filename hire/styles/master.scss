@@ -17,6 +17,48 @@ html {
           font-weight: bold;
         }
       }
+      .tab-content {
+        height: 300px;
+        overflow-y: auto;
+        > div {
+          display: none;
+          &.active {
+            display: block;
+          }
+        }
+      }
+      .tabs {
+        ul {
+         flex-wrap: wrap;
+        }
+      }
+      .tab-content {
+        width: 600px;
+        max-width: 100%;
+        ul {
+          //display: table;
+          li {
+            list-style: disc;
+            list-style-position: inside;
+            text-indent: -1.5em;
+            //display: table-row;
+            //&::before {
+            //  content: '- ';
+            //  display: tabel-cell;
+            //  text-align: right;
+            //}
+          }
+        }
+      }
+      #contact_form {
+        label {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          &.active {
+            opacity: 1;
+          }
+        }
+      }
       .tab-container {
         width: 600px;
         > ul {
@@ -63,18 +105,7 @@ html {
           }
         }
       }
-
-      .list-discs {
-        li {
-          &:before {
-            content: "-";
-            font-size: 1em;
-            vertical-align: baseline;
-          }
-        }
-      }
     }
-    
   }
 }
 

@@ -1,24 +1,48 @@
-window.KA = {
-  init: function() {
-    KA.contactInit()
-  },
-  contactInit: function() {
-    var form = document.getElementById('contact_form')
-    form.action = '/contact.php'
-    form.onsubmit = KA.contact
-  },
-  contact: function(event) {
+document.addEventListener('DOMContentLoaded', init)
+
+// global object
+window.KA = {}
+
+// initialization functions
+function init() {
+  initInputLabels()
+  initContactForm()
+}
+
+function initInputLabels() {
+  // input labels show
+  Array.prototype.forEach.call(document.querySelectorAll('.autoshow-labels input, .autoshow-labels textarea'), function(el) {
+    el.addEventListener('input', function() {
+      if (this.value.length > 0) {
+        var label = document.querySelector('label:not(.active)[for="' + this.id + '"]')
+        if (label) {
+          label.classList.add('active')
+        }
+      } else {
+        var label = document.querySelector('label.active[for="' + this.id + '"]')
+        if (label) {
+          label.classList.remove('active')
+        }
+      }
+    })
+  })
+}
+
+function initContactForm() {
+  document.querySelector('#contact_form').addEventListener('submit', contact)
+
+  function contact(event) {
     event.preventDefault()
 
     var form = document.getElementById('contact_form')
     var message = document.getElementById('contact_message')
 
-    form.style.display = 'none'
-    message.style.display = 'block'
+    var fields = form.querySelector('.fields')
+    message.style.height = fields.offsetHeight + 'px'
+    fields.style.display = 'none'
+    message.style.display = 'table-cell'
 
-    KA.ajaxPost(form)
-  },
-  ajaxPost: function(form) {
+    // ajax post
     var url = form.action,
         xhr = new XMLHttpRequest()
 
@@ -35,25 +59,6 @@ window.KA = {
 
     console.log('params', params)
     xhr.send(params)
-  },
+  }
 }
 
-KA.init()
-
-
-// input labels show
-Array.prototype.forEach.call(document.querySelectorAll('.contact-form input, .contact-form textarea'), function(el) {
-  el.addEventListener('input', function() {
-    if (this.value.length > 0) {
-      var label = document.querySelector('label:not(.active)[for="' + this.id + '"]')
-      if (label) {
-        label.classList.add('active')
-      }
-    } else {
-      var label = document.querySelector('label.active[for="' + this.id + '"]')
-      if (label) {
-        label.classList.remove('active')
-      }
-    }
-  })
-})

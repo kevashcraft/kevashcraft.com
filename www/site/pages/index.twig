@@ -85,32 +85,47 @@
   <img class="section-header" src="/img/telescope.png" alt="a telescope">
   <h3>Find Me</h3>
   <p>Contact me <strong>via email</strong> at <a href="mailto:kevin@kevashcraft.com?subject=Hello from your website">kevin@kevashcraft.com</a> or type a quick message below:</p>
-  <div id="contact_message" style="display: none">
-    <p class="message">Thanks</p>
+  <div class="container">
+    <form id="contact_form" class="autoshow-labels box contact-form">
+      <h3>Send me a message</h3>
+      <div id="contact_message" class="contact-message">
+        <p>Thanks! I'll be in touch :)</p>
+      </div>
+      <div class="fields">
+        <div class="field-body columns is-centered">
+          <div class="field column is-one-half">
+            <label for="name_input" class="label">Name</label>
+            <div class="control is-expanded has-icons-left">
+              <input type="text" name="name" id="name_input" placeholder="Your name" class="input" />
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field column is-one-half">
+            <label for="email_input" class="label">Email</label>
+            <div class="control is-expanded has-icons-left">
+              <input type="email" name="email" id="email_input" placeholder="Your email address" class="input" />
+              <span class="icon is-small is-left">
+                <i class="fa fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="message_input" class="label">Message</label>
+          <div class="control">
+            <textarea name="message" id="message_input" placeholder="A message" class="textarea"></textarea>
+          </div>
+        </div>
+        <div class="field is-grouped is-grouped-right">
+          <div class="control">
+            <button class="button is-primary">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <form id="contact_form" class="contact-form">
-    <div>
-      <div>
-        <label for="name_input">Name</label>
-        <input type="text" name="name" id="name_input" placeholder="Your name">
-      </div>
-      <div>
-        <label for="email_input">Email</label>
-        <input type="email" name="email" id="email_input" placeholder="Your email">
-      </div>
-    </div>
-    <div>
-      <div>
-        <label for="message_input" class="textarea">Message</label>
-        <textarea name="message" id="message_input" placeholder="A nice message :)"></textarea>
-      </div>
-    </div>
-    <div>
-      <div>
-        <button>Send</button>
-      </div>
-    </div>
-  </form>
   <p>and you can <strong>find me around the web</strong>...</p>
   <div class="flex around social">
     <ul>
