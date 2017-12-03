@@ -63,8 +63,16 @@ gulp.task('scripts', function(cb) {
   return stream;
 });
 
+let stuff = ['hire/stuff/**/*',
+  'hire/stuff/**/.*',
+  'common/stuff/**/*',
+  '*node_modules/font-awesome/css/**/*',
+  '*node_modules/font-awesome/fonts/**/*',
+  '*node_modules/chart.js/dist/Chart.min.js',
+  '*node_modules/bulma/css/bulma.css'
+]
 gulp.task('stuff', function(cb) {
-  return gulp.src(['hire/stuff/**/*', 'hire/stuff/**/.*', 'common/stuff/**/*', '*node_modules/font-awesome/css/**/*', '*node_modules/font-awesome/fonts/**/*', '*node_modules/chart.js/dist/Chart.min.js'])
+  return gulp.src(stuff)
     .pipe(gulp.dest('hire/dist'));
 });
 
@@ -91,6 +99,7 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('hire/styles/**/*.scss', ['styles']);
   gulp.watch('hire/scripts/**/*.js', ['scripts']);
   gulp.watch('hire/site/**/*.twig', ['site']);
+  gulp.watch('common/**/*.twig', ['site', 'stuff', 'styles', 'scripts']);
 });
 
 gulp.task('watch-styles', ['default'], function() {

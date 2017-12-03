@@ -62,8 +62,17 @@ gulp.task('scripts', function(cb) {
   return stream;
 });
 
+let stuff = [
+  'www/stuff/**/*',
+  'www/stuff/**/.*',
+  'common/stuff/**/*',
+  '*node_modules/font-awesome/css/**/*',
+  '*node_modules/font-awesome/fonts/**/*',
+  '*node_modules/bulma/css/**/*'
+]
+
 gulp.task('stuff', function(cb) {
-  return gulp.src(['www/stuff/**/*', 'www/stuff/**/.*', 'common/stuff/**/*', '*node_modules/font-awesome/css/**/*', '*node_modules/font-awesome/fonts/**/*'])
+  return gulp.src(stuff)
     .pipe(gulp.dest('www/dist'));
 });
 
@@ -90,6 +99,7 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('www/styles/**/*.scss', ['styles']);
   gulp.watch('www/scripts/**/*.js', ['scripts']);
   gulp.watch('www/site/**/*.twig', ['site']);
+  gulp.watch('common/**/*.twig', ['site', 'stuff', 'styles', 'scripts']);
 });
 
 gulp.task('watch-styles', ['default'], function() {
