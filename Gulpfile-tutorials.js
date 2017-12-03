@@ -229,5 +229,5 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('tutorials/styles/**/*.scss', ['styles']);
   gulp.watch('tutorials/scripts/**/*.js', ['scripts']);
   gulp.watch('tutorials/site/**/*.*', ['site', 'blogs']);
-  gulp.watch('common/**/*.twig', ['site', 'stuff', 'styles', 'scripts']);
+  gulp.watch('common/**/*.*', ['site', 'stuff', 'styles', 'scripts']);
 });

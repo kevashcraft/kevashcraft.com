@@ -99,7 +99,7 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('www/styles/**/*.scss', ['styles']);
   gulp.watch('www/scripts/**/*.js', ['scripts']);
   gulp.watch('www/site/**/*.twig', ['site']);
-  gulp.watch('common/**/*.twig', ['site', 'stuff', 'styles', 'scripts']);
+  gulp.watch('common/**/*.*', ['site', 'stuff', 'styles', 'scripts']);
 });
 
 gulp.task('watch-styles', ['default'], function() {

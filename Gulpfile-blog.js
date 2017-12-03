@@ -278,5 +278,5 @@ gulp.task('watch', ['default'], function() {
   gulp.watch('blog/styles/**/*.scss', ['styles']);
   gulp.watch('blog/scripts/**/*.js', ['scripts']);
   gulp.watch('blog/site/**/*.*', ['site', 'blogs']);
-  gulp.watch('common/**/*.twig', ['site', 'stuff', 'styles', 'scripts']);
+  gulp.watch('common/**/*.*', ['site', 'stuff', 'styles', 'scripts']);
 });
