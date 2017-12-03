@@ -4,4 +4,5 @@ blog/dist
 tutorials/dist
 hire/dist
 .zedstate
+*.swp
 
