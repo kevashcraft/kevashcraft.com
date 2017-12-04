@@ -57,7 +57,6 @@ function initContactForm() {
     xhr.open('POST', url)
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
-    console.log('params', params)
     xhr.send(params)
   }
 }
