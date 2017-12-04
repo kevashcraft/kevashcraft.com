@@ -7,20 +7,20 @@ foreach ($params as $param => $value) {
   }
 }
 
-$to = 'Hello Kevin <hello@kevashcraft.com'; // note the comma
+$to = 'Hire Kevin <hire@kevashcraft.com>'; // note the comma
 
 $date = date('Y-m-d H:i');
-$subject = "www.kevashcraft.com contact - {$params['name']} - {$params['email']} - {$date}";
+$subject = "HIRE CONTACT - {$params['name']} - {$params['email']} - {$date}";
 
 
 // Message
 $message = "
 <html>
 <head>
-  <title>www.kevashcraft.com contact</title>
+  <title>Hire Kevin!</title>
 </head>
 <body>
-  <p>Received a site contact!</p>
+  <p>Received a hire contact!</p>
   <p>Date: {$date}</p>
   <p>Name: {$params['name']}</p>
   <p>Email: {$params['email']}</p>
@@ -37,7 +37,7 @@ $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
 // Additional headers
-$headers[] = 'From: WWW Kevin <www@kevashcraft.com>';
+$headers[] = 'From: Hire Kevin Site <hiresite@kevashcraft.com>';
 
 // Mail it
 mail($to, $subject, $message, implode("\r\n", $headers));
