@@ -7,7 +7,7 @@ foreach ($params as $param => $value) {
   }
 }
 
-$to = 'Hello Kevin <hello@kevashcraft.com'; // note the comma
+$to = 'Hello Kevin <hello@kevashcraft.com>'; // note the comma
 
 $date = date('Y-m-d H:i');
 $subject = "www.kevashcraft.com contact - {$params['name']} - {$params['email']} - {$date}";
@@ -41,3 +41,6 @@ $headers[] = 'From: WWW Kevin <www@kevashcraft.com>';
 
 // Mail it
 mail($to, $subject, $message, implode("\r\n", $headers));
+
+echo json_encode(['status' => 200, 'message' => 'sent']);
+

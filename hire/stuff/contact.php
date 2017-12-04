@@ -41,3 +41,6 @@ $headers[] = 'From: Hire Kevin Site <hiresite@kevashcraft.com>';
 
 // Mail it
 mail($to, $subject, $message, implode("\r\n", $headers));
+
+echo json_encode(['status' => 200, 'message' => 'sent']);
+
