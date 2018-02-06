@@ -1,4 +1,5 @@
 {
   "centos-7.4":"CentOS 7.4",
+  "docker":"Docker",
   "puppet-4":"Puppet 4"
 }

@@ -1,0 +1,185 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Docker Basics' %}
+
+{% block content %}
+<section>
+  <h3><a href="/docker/basics" title="Docker Basics">Docker Basics</a></h3>
+  <div class="flex">
+    <div>
+      <img src="/img/common/docker-logo.svg" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        Docker is a container system that allows you to run operating-system-level virtualization. There are many advantages to using containers as opposed to virtual machines, some of which are guaranteed environments so development and production always match, the ability to quickly scale a service by adding more containers, and the ability to store the server configuration alongside your codebase.
+      </p>
+      <p>
+        In this tutorial we'll walk through the basics of using Docker, from <a href="#adhoc-containers">running an ad-hoc container</a> to <a href="#dockerfile">defining a container with a Dockerfile</a>, <a href="#docker-compose">using docker-compose to setup a development environment</a> and finally <a href="#production">preparing for production</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Tutorial Overview</h5>
+    <ul>
+      <li>
+        <a href="#adhoc-containers">running an ad-hoc container</a>
+      </li>
+      <li>
+        <a href="#dockerfile">defining a container with a Dockerfile</a>
+      </li>
+      <li>
+        <a href="#docker-compose">setting up a development environment with docker-compose</a>
+      </li>
+      <li>
+        <a href="#production">preparing for production</a>
+      </li>
+    </ul>
+  </div>
+  <div class="indent">
+    <h5>Install Docker</h5>
+    <p>
+      For <a href="https://docs.docker.com/docker-for-mac/install/" target="_blank" rel="noopener">Mac</a>, <a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Windows</a>, or <a href="https://docs.docker.com/docker-for-ubuntu/install/" target="_blank" rel="noopener">Ubuntu</a>.
+    </p>
+  </div>
+</section>
+<section id="adhoc-containers">
+  <h4><a href="#adhoc-containers">Ad-hoc Containers</a></h4>
+  <div class="snippet one-line"><pre>docker run -it ubuntu bash</pre></div>
+  <p>
+    You can run any published container (anything on <a href="https://hub.docker.com/" target="_blank" rel="noopener">docker hub</a>) with this command. The container will be downloaded (in layers), then launched and used to execute the command.
+  </p>
+  <p>
+    This command runs bash on the <a href="https://hub.docker.com/_/ubuntu/" target="_blank" rel="noopener">latest version of Ubuntu</a>, giving you access to the command line. The <span class="command">-it</span> tells Docker to run an <strong>i</strong>nteractive <strong>t</strong>ty, basically displaying the output of the command and allowing you to add additional input.
+  </p>
+  <p><strong>Postgres Example</strong></p>
+  <div class="snippet one-line"><pre>docker run postgres</pre></div>
+  <div class="snippet one-line"><pre>docker ps</pre></div>
+  <div class="snippet one-line"><pre>docker exec -it <em>$container_id</em> psql -U postgres</pre></div>
+  <p>
+    Another example would be running a Postgres container. This one is a bit more complicated because postgres must be initiated before being usable. The first command downloads and starts the <a href="https://hub.docker.com/_/postgres/" target="_blank" rel="noopener" title="Official Postgres Containers">postgres container</a>, the next (to be ran in another window) will show all of the currently running containers (the one you just started should be at the top), and finally the third command will launch psql in the container. <span class="command">exec</span> is like run, but used on already running containers.
+  </p>
+</section>
+<section id="dockerfile">
+  <h4><a href="#dockerfile">Dockerfiles</a></h4>
+  <div class="snippet">
+    <p class="filename">Dockerfile</p>
+    <pre>
+FROM node:latest
+
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY ./webpack.config.js ./
+
+RUN npm install
+
+EXPOSE 8080
+EXPOSE 3001
+
+CMD ["npm","run","dev"]
+    </pre>
+  </div>
+  <p>
+    A Dockerfile is used to define a container. <span class="command">FROM</span> states what container to start building from, <span class="command">RUN</span> is used to execute one-time commands on that container, <span class="command">WORKDIR</span> defines the working directory, <span class="command">COPY</span> will copy files and directories from your host to the container, <span class="command">EXPOSE</span> will define ports that can be accessed, and <span class="command">CMD</span> states the command that the container is built to execute.
+  </p>
+  <p>
+    This file creates a new container built from the latest official <a href="https://hub.docker.com/_/node/" target="_blank" rel="noopener" title="NodeJS Official Docker Repository">nodejs container</a>, it copies package.json and then installs all of the dependencies listed before running the <span class="command">npm run dev</span> command. You could access the running services via <span class="command">localhost:8080</span> and <span class="command">localhost:3001</span>.
+  </p>
+  <p>
+    The reason that we don't copy the entire node_modules directory is because we want to keep the container as light as possible, so giving it the instructions to build the dependencies is better than just copying them all (otherwise when you start moving this thing from devel to testing or production, it'd have to move all of the modules as well instead of just the instructions on how to install them).
+  </p>
+</section>
+<section id="docker-compose">
+  <h4><a href="#docker-compose">Docker-Compose</a></h4>
+  <p>
+    <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener" title="Docker Compose Official Page">Docker-Compose</a> provides a convenient way to launch a multi-container environment by defining which containers to use, along with volumes, environmental variables, and port forwarding.
+  </p>
+  <div class="snippet">
+    <p class="filename">docker-compose.yml</p>
+    <pre>
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+      - 40801:3001
+    depends_on:
+      - postgres
+    volumes:
+      - ../src:/app/src
+      - ../.babelrc:/app/.babelrc
+      - ../package.json:/app/package.json
+      - ../node_modules:/app/node_modules
+    environment:
+      - API_SERVER=${API_SERVER}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+  postgres:
+    build:
+      dockerfile: Dockerfile-postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:3.2.11
+
+volumes:
+  postgres_data:
+    </pre>
+  </div>
+  <p>
+    The <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener" title="docker-compose.yml documentation">docker-compose.yml</a> file defines the containers and their interactions. In this file we're launching three containers, a nodejs app for development, a postgres database, and a redis database.
+  </p>
+  <p>
+    Most of this is self-explanatory, for example the <span class="command">depends_on</span> property states that the app container depends on the postgres one and should be started after it, the <span class="command">ports</span> property shows which host ports to bind to which container ports. One part that should be highlighted is the <span class="command">volumes</span> since we didn't cover it before. Volumes are files/directories on the host machine to be mounted inside of the container. In this example, all of the <span class="command">node_modules</span> and <span class="command">src</span> directories are mounted, along with <span class="command">.babelrc</span> and <span class="command">package.json</span>. That way if any file is changed on the host, it's also changed inside of the container (for example, install a new module and it'll be available to the app).
+  </p>
+  <p>
+    These environment variables are passing already existing variables on the host. They could also be explicitly defined such as <span class="command">NODE.env=development</span>.
+  </p>
+</section>
+<section id="production">
+  <h4><a href="#production">Production Considerations</a></h4>
+  <div class="snippet one-line"><pre>docker build -t myapp:latest .</pre></div>
+  <div class="snippet one-line"><pre>docker push myapp:latest</pre></div>
+  <p>
+    Generally speaking, the first step in using containers for production is first publishing them to a container repository. These two commands will build a container and then publish it on Docker Hub. From there they'd be retrieved and ran by your production server. This is why we want to keep everything as lightweight as possible.
+  </p>
+  <p>
+    One nice way to go about this to use <a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener" title="Docker Blog: Multi-stage Builds">multi-stage builds</a> to create a container with only the essential files.
+  </p>
+  <div class="snippet">
+    <p class="filename">Dockerfile-site</p>
+    <pre>
+FROM node:9.4 as builder
+
+RUN mkdir /app/src -p
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY ./webpack.config.js ./
+COPY .babelrc ./
+COPY ./src ./src/
+
+RUN npm install
+RUN npm run site:build
+
+FROM nginx:1.13
+
+COPY --from=builder /app/dist/site /usr/share/nginx/html
+
+EXPOSE 80
+    </pre>
+  </div>
+  <p>
+    In this example we're first building a container with all of the source files and package.json, and then we're installing all of the node modules. This results in a large amount of data, most of which is not needed and only there to build the static distribution files.
+  </p>
+  <p>
+    The second <span class="command">FROM</span> command tells Docker to create another container, and that it will eventually discard the first. In the second container, the <span class="command">--from=builder</span> flag is showing that the files are being copied from the initial container (you could name it anything, btw).
+  </p>
+  <p>
+    This will result in a single nginx container with only the static site files, making it nice and light, easy to transport.
+  </p>
+</section>
+{% endblock %}
