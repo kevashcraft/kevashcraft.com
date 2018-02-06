@@ -1,46 +1,102 @@
-Download CentOS
-Set Keyboard/Language
-Set Destination Drive
-Set Network
-Create Users
+{% extends 'templates/master.twig' %}
 
-Kickstart Automated Install
+{% set title = 'Docker Basics' %}
 
-
-CentOS Installation
-
-CentOS 7.4 is a distribution of Linux built from the same sources as Red Hat Linux. It's a server operating system ready for enterprise-level services. This is a walkthrough covering how to install CentOS in just a few steps (it really is quite straight-forward). The first step is to download a CentOS image to boot into, either by burning it onto a cd or copying to a usb. Next we'll set the network information and destination dive. During the  process, we'll set the root password and create an admin user.
-
-For a bonus, the entire process can be automated with kickstart.
-
-Download CentOS
-
-Download an image of the most recent version by going to centos.org and clicking on the Get CentOS Now (https://www.centos.org/download/) button and then clicking on the Minimal ISO (http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso) button on the next page. This will take you to a bunch of links (mirrors) for the image; click any one. There are several other image types and download methods available, including a long list of mirrors (https://www.centos.org/download/mirrors/), and in the future I recommend using a torrent option as it's often the fastest.
-
-Once you've obtained the image, copy it onto a cd or usb drive, and then boot it up on your soon-to-be server.
-
-Set Keyboard/Language
-
-The selection you'll need to make is for the language and keyboard layout. This one is straight-foward, just select your language, and is written here soley for the purpose of thoroughness.
-
-Set the Destination Drive
-
-To set the destination drive click on the drive icon and a new window will appear showing the different configuration options. I recommend selecting "do it yourself" so you can confirm the partitions that are made (since CentOS will often make a large /home partition that I'd prefer to be all allocated to /).
-
-On the drive partition window, click "automatically create partitions", and then reallocate the home partition's space if necessary by removing the home partition and increasing the / partition by the newly available space.
-
-Set Network
-To configure the network click on the network icon and a new window will open showing the devices. Click on the one that's connected to enable it, and then set the hostname and ip addresses (if it's not dhcp). This step is not absolutely necessary, but makes the initial login and basic configuratio (/basic config) much easier since the system will be connected to the network and you'll already know the ip address.
-
-If you do not enable the card here it will not be start automatically when the system boots (and you'll need to start it with commands like 'ip link set enp2s0 up' and get an address with 'dhcpcd'.
-
-Create User Accounts
-
-While the system is being installed you're able to create the root password and a new user. Type the root password twice, and then while you're making the user click the "make admin user" button.
-
-Automated Install with Kickstart
-
-A file was created in the /root directory named 'anaconda.ks.cfg' and has all of the settings you just selected. It can be used to launch additional systems automatically so you can quickly create many servers at a time.
-
-There are two steps you need to take to automatically install CentOS via kickstart. First: update the file with additional settings for the drive size. Second: when booting the CentOS minimal image, press the 'tab' key at the grub screen and edit the init line, adding 'ks=http://10.10.10.10/anaconda.ks.cfg'
-
+{% block content %}
+<section>
+  <h3><a href="/centos-7.4/install" title="Install CentOS 7.4">Install CentOS 7.4</a></h3>
+  <div class="flex">
+    <div>
+      <img src="/img/common/centos-logo.svg" width="250px">
+    </div>
+    <div class="stretch">
+      <p>
+        CentOS 7.4 is a distribution of Linux built from the same sources as Red Hat Linux. It's a server operating system ready for enterprise-level services. This is a walkthrough covering how to install CentOS in just a few steps (it really is quite straight-forward). The first step is to download a CentOS image to boot into, either by burning it onto a cd or copying to a usb. Next we'll set the network information and destination dive. During the  process, we'll set the root password and create an admin user.
+      </p>
+      <p>
+        For a bonus, the entire process can be automated with kickstart.
+      </p>
+      <p>
+        In this tutorial we'll walk through the basics of installing CentOS, starting with <a href="#download-iso">downloading the ISO</a>, and then setting <a href="#keyboard-language">the keyboard/language</a>, <a href="#destination-drive">destination drive</a>, <a href="#network-configuration">network configuration</a>, and <a href="#create-users">users</a>, and finally <a href="#kickstart-automation">automating everything with kickstart</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Tutorial Overview</h5>
+    <ul>
+      <li>
+        <a href="#download-iso">Download CentOS ISO</a>
+      </li>
+      <li>
+        <a href="#keyboard-language">Set the Keyboard/Language</a>
+      </li>
+      <li>
+        <a href="#destination-drive">Set the Destination Drive</a>
+      </li>
+      <li>
+        <a href="#network-configuration">Configure the Network</a>
+      </li>
+      <li>
+        <a href="#create-users">Create Users</a>
+      </li>
+    </ul>
+  </div>
+  <div class="indent">
+    <h5>Configuration Steps</h5>
+    <ul>
+      <li>
+        <a href="#kickstart-automation">Automate the Installation with Kickstart</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="download-iso">
+  <h4><a href="#download-iso">Download CentOS</a></h4>
+  <p>
+    Download an image of the most recent version by going to centos.org and clicking on the <a href="https://www.centos.org/download/" target="_blank" rel="noopener" title="Download CentOS">Get CentOS Now</a> button and then clicking on the <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso" target="_blank" rel="noopener" title="CentOS Minimal ISO">Minimal ISO</a> button on the next page. This will take you to a bunch of links (mirrors) for the image; click any one. There are several other image types and download methods available, including a long <a href="https://www.centos.org/download/mirrors/" target="_blank" rel="noopener" title="CentOS Mirrors">list of mirrors</a>, and in the future I recommend using a torrent option as it's often the fastest.
+  </p>
+  <p>
+    Once you've obtained the image, copy it onto a cd or usb drive with dd, and then boot it up on your soon-to-be server.
+  </p>
+  <div class="snippet one-line"><pre>dd if=CentOS-7-x86_64-Minimal-1708.iso of=/dev/<em>$usb_device</em></pre></div>
+</section>
+<section id="keyboard-language">
+  <h4><a href="#keyboard-language">Set Keyboard/Language</a></h4>
+  <p>
+    The selection you'll need to make is for the language and keyboard layout. This one is straight-foward, just select your language, and is written here soley for the purpose of thoroughness.
+  </p>
+</section>
+<section id="destination-drive">
+  <h4><a href="#destination-drive">Set Destination Drive</a></h4>
+  <p>
+    To set the destination drive click on the drive icon and a new window will appear showing the different configuration options. I recommend selecting "do it yourself" so you can confirm the partitions that are made (since CentOS will often make a large /home partition that I'd prefer to be all allocated to /).
+  </p>
+  <p>
+    On the drive partition window, click "automatically create partitions", and then reallocate the home partition's space if necessary by removing the home partition and increasing the / partition by the newly available space.
+  </p>
+</section>
+<section id="network-configuration">
+  <h4><a href="#network-configuration">Configure the Network</a></h4>
+  <p>
+    To configure the network click on the network icon and a new window will open showing the devices. Click on the one that's connected to enable it, and then set the hostname and ip addresses (if it's not dhcp). This step is not absolutely necessary, but makes the initial login and basic configuratio (/basic config) much easier since the system will be connected to the network and you'll already know the ip address.
+  </p>
+  <p>
+    If you do not enable the card here it will not be start automatically when the system boots (and you'll need to start it with commands like 'ip link set enp2s0 up' and get an address with 'dhcpcd'.
+  </p>
+</section>
+<section id="create-users">
+  <h4><a href="#create-users">Create Users</a></h4>
+  <p>
+    While the system is being installed you're able to create the root password and a new user. Type the root password twice, and then while you're making the user click the "make admin user" button.
+  <p>
+</section>
+<section id="kickstart-automation">
+  <h4><a href="#kickstart-automation">Kickstart Automated Install</a></h4>
+  <p>
+    A file was created in the /root directory named 'anaconda.ks.cfg' and has all of the settings you just selected. It can be used to launch additional systems automatically so you can quickly create many servers at a time.
+  </p>
+  <p>
+    There are two steps you need to take to automatically install CentOS via kickstart. First: update the file with additional settings for the drive size. Second: when booting the CentOS minimal image, press the 'tab' key at the grub screen and edit the init line, adding 'ks=http://10.10.10.10/anaconda.ks.cfg'
+  </p>
+</section>
+{% endblock %}

@@ -9,6 +9,15 @@
     ]
   },
   {
+    "title":"Install CentOS 7.4",
+    "folder":"centos-7.4",
+    "page":"installation",
+    "date":"2017-12-01 15:14:00",
+    "tags":[
+      "LinuxAdmin", "DevOps"
+    ]
+  },
+  {
     "title":"Docker Basics",
     "folder":"docker",
     "page":"basics",
