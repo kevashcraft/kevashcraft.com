@@ -1,5 +1,4 @@
 {
-  "centos-7.4":"CentOS 7.4",
-  "docker":"Docker",
-  "puppet-4":"Puppet 4"
+  "centos-7.4":{"name":"CentOS 7.4","logo":"/img/common/centos-logo.svg"},
+  "docker":{"name":"Docker","logo":"/img/common/docker-logo.svg"}
 }

@@ -56,7 +56,8 @@ tutorials.forEach(function (tutorial) {
   if (folderIndex < 0) {
     folders.push({
       folder: f,
-      folderName: folderNames[f],
+      folderName: folderNames[f].name,
+      folderLogo: folderNames[f].logo,
       tutorials: [tutorial]
     })
   } else {
@@ -135,6 +136,7 @@ gulp.task('tags', function () {
     var tag = tags[i]
     var d = {
       tag: tag.tag,
+      tags: tags,
       folders: folders,
       tutorials: tag.tutorials
     }
