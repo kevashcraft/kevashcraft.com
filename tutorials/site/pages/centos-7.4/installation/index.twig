@@ -11,13 +11,13 @@
     </div>
     <div class="stretch">
       <p>
-        CentOS 7.4 is a distribution of Linux built from the same sources as Red Hat Linux. It's a server operating system ready for enterprise-level services. This is a walkthrough covering how to install CentOS in just a few steps (it really is quite straight-forward). The first step is to download a CentOS image to boot into, either by burning it onto a cd or copying to a usb. Next we'll set the network information and destination dive. During the  process, we'll set the root password and create an admin user.
+        CentOS 7.4 is a distribution of Linux built from the same sources as Red Hat Linux. It's a server operating system ready for enterprise-level services. This is a walkthrough covering how to install CentOS in just a few steps (it really is quite straight-forward).
       </p>
       <p>
-        For a bonus, the entire process can be automated with kickstart.
+        In this tutorial we'll walk through the basics of installing CentOS, starting with <a href="#download-iso">downloading the ISO</a>, and then setting <a href="#keyboard-language">the keyboard/language</a>, <a href="#destination-drive">destination drive</a>, <a href="#network-configuration">network configuration</a>, and <a href="#create-users">users</a>.
       </p>
       <p>
-        In this tutorial we'll walk through the basics of installing CentOS, starting with <a href="#download-iso">downloading the ISO</a>, and then setting <a href="#keyboard-language">the keyboard/language</a>, <a href="#destination-drive">destination drive</a>, <a href="#network-configuration">network configuration</a>, and <a href="#create-users">users</a>, and finally <a href="#kickstart-automation">automating everything with kickstart</a>.
+        For a bonus, the entire process can be <a href="#kickstart-automation">automated with kickstart</a>.
       </p>
     </div>
   </div>
@@ -42,12 +42,15 @@
     </ul>
   </div>
   <div class="indent">
-    <h5>Configuration Steps</h5>
+    <h5>Bonus Steps</h5>
     <ul>
       <li>
         <a href="#kickstart-automation">Automate the Installation with Kickstart</a>
       </li>
     </ul>
+  </div>
+  <div class="flex center">
+    <img src="centos-install-splash.png" class="xlarge">
   </div>
 </section>
 <section id="download-iso">
@@ -55,6 +58,13 @@
   <p>
     Download an image of the most recent version by going to centos.org and clicking on the <a href="https://www.centos.org/download/" target="_blank" rel="noopener" title="Download CentOS">Get CentOS Now</a> button and then clicking on the <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso" target="_blank" rel="noopener" title="CentOS Minimal ISO">Minimal ISO</a> button on the next page. This will take you to a bunch of links (mirrors) for the image; click any one. There are several other image types and download methods available, including a long <a href="https://www.centos.org/download/mirrors/" target="_blank" rel="noopener" title="CentOS Mirrors">list of mirrors</a>, and in the future I recommend using a torrent option as it's often the fastest.
   </p>
+  <div class="flex center">
+    <img src="centos-get-now.png" class="large">
+    <img src="centos-minimal.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-mirrors.png" class="xlarge">
+  </div>
   <p>
     Once you've obtained the image, copy it onto a cd or usb drive with dd, and then boot it up on your soon-to-be server.
   </p>
@@ -65,30 +75,76 @@
   <p>
     The selection you'll need to make is for the language and keyboard layout. This one is straight-foward, just select your language, and is written here soley for the purpose of thoroughness.
   </p>
+  <div class="flex center">
+    <img src="centos-keyboard-language.png" class="xlarge">
+  </div>
 </section>
 <section id="destination-drive">
   <h4><a href="#destination-drive">Set Destination Drive</a></h4>
   <p>
     To set the destination drive click on the drive icon and a new window will appear showing the different configuration options. I recommend selecting "do it yourself" so you can confirm the partitions that are made (since CentOS will often make a large /home partition that I'd prefer to be all allocated to /).
   </p>
+  <div class="flex center">
+    <img src="centos-hdd-partition-button.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-hdd-partition-selection.png" class="large">
+  </div>
   <p>
     On the drive partition window, click "automatically create partitions", and then reallocate the home partition's space if necessary by removing the home partition and increasing the / partition by the newly available space.
   </p>
+  <div class="flex center">
+    <img src="centos-hdd-automatic-partitions.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-hdd-clean-partitions.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-hdd-partitioning.png" class="xlarge">
+  </div>
 </section>
 <section id="network-configuration">
   <h4><a href="#network-configuration">Configure the Network</a></h4>
+  <div class="flex center">
+    <img src="centos-network-button.png" class="large">
+  </div>
   <p>
     To configure the network click on the network icon and a new window will open showing the devices. Click on the one that's connected to enable it, and then set the hostname and ip addresses (if it's not dhcp). This step is not absolutely necessary, but makes the initial login and basic configuratio (/basic config) much easier since the system will be connected to the network and you'll already know the ip address.
   </p>
+  <div class="flex center">
+    <img src="centos-network-set.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-network-on.png" class="large">
+  </div>
   <p>
     If you do not enable the card here it will not be start automatically when the system boots (and you'll need to start it with commands like 'ip link set enp2s0 up' and get an address with 'dhcpcd'.
   </p>
+  <div class="flex center">
+    <img src="centos-ipv4-settings.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-hostname.png" class="large">
+  </div>
 </section>
+<div class="flex center">
+  <img src="centos-begin-installation.png" class="xlarge">
+</div>
 <section id="create-users">
   <h4><a href="#create-users">Create Users</a></h4>
   <p>
     While the system is being installed you're able to create the root password and a new user. Type the root password twice, and then while you're making the user click the "make admin user" button.
   <p>
+  <div class="flex center">
+    <img src="centos-root-password-needed.png" class="large">
+    <img src="centos-user-needed.png" class="large">
+  </div>
+  <div class="flex center">
+    <img src="centos-set-root-password.png" class="xlarge">
+  </div>
+  <div class="flex center">
+    <img src="centos-user-settings.png" class="xlarge">
+  </div>
 </section>
 <section id="kickstart-automation">
   <h4><a href="#kickstart-automation">Kickstart Automated Install</a></h4>
@@ -98,5 +154,77 @@
   <p>
     There are two steps you need to take to automatically install CentOS via kickstart. First: update the file with additional settings for the drive size. Second: when booting the CentOS minimal image, press the 'tab' key at the grub screen and edit the init line, adding 'ks=http://10.10.10.10/anaconda.ks.cfg'
   </p>
+  <div class="flex center">
+    <img src="centos-kickstart-launch.png" class="xlarge">
+  </div>
+  <div class="snippet">
+    <p class="filename">anaconda.ks.cfg</p>
+    <pre>
+#version=DEVEL
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Use CDROM installation media
+cdrom
+# Use graphical install
+graphical
+# Run the Setup Agent on first boot
+firstboot --enable
+ignoredisk --only-use=vda
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts='us'
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
+
+# Root password
+rootpw --iscrypted $6$5tNvDS1mBrDzA6LA$gLtZWPlQM3y/Nv0yrPEus4uSIlYLn/FYhervFpncBruoZv404PB6m/
+# System services
+services --enabled="chronyd"
+# System timezone
+timezone America/New_York --isUtc
+user --groups=wheel --name=kevin --password=$6$hFPODGxyNnmk/.5H$/Xj2SKR.GXfOV7lC1ICfZhf55C3YKdm1m8vsLQY6wGJ0 --iscrypted --gecos="kevin"
+# System bootloader configuration
+bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=vda
+# Partition clearing information
+clearpart --none --initlabel
+# Disk partitioning information
+part /boot --fstype="xfs" --ondisk=vda --size=1024
+part pv.156 --fstype="lvmpv" --ondisk=vda --size=1 --grow
+volgroup centos --pesize=4096 pv.156
+logvol /  --fstype="xfs" --grow --size=1 --name=root --vgname=centos
+logvol swap  --fstype="swap" --size=2048 --name=swap --vgname=centos
+
+%packages
+@^minimal
+@core
+chrony
+kexec-tools
+epel-release
+%end
+
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
+%anaconda
+pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+%end
+
+%post
+/bin/yum update -y
+/bin/yum install -y puppet
+/bin/puppet agent --test --waitforcert 300
+/bin/mkdir /etc/facter/facts.d -p
+/bin/echo "---
+puppet_network=virtual_k4k
+puppet_os=centos
+" > /etc/facter/facts.d/external_facts.yaml
+%end
+    </pre>
+  </div>
 </section>
 {% endblock %}

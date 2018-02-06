@@ -21,7 +21,7 @@ html {
           padding: 1em 0.1em;
         }
       }
-      
+
       > article {
         display: block;
         max-width: $site-width;
@@ -32,7 +32,7 @@ html {
         section {
           margin: 1em 0.5em 3em;
           padding-top: 4em;
-        
+
           strong {
             font-weight: bold;
           }
@@ -172,6 +172,10 @@ html {
         max-width: 300px;
         max-height: 300px;
       }
+      img.xlarge {
+        max-width: 600px;
+        max-height: 600px;
+      }
       label {
         font-size: 0.6em;
         font-weight: 600;
@@ -251,7 +255,7 @@ html {
       .flex-end {
         justify-content: flex-end;
       }
-      
+
       .icon-margins {
         i.fa {
           margin-right: 1.5em;
@@ -449,7 +453,7 @@ html {
         max-width: 65px;
         max-height: 65px;
       }
-      
+
       p.em {
         margin: 2em 3em;
         font-weight: 400;
@@ -465,7 +469,7 @@ html {
         min-height: 400px;
         background: darken($text-accent-color, 15%);
         padding-top: 25px;
-        
+
         h1, h2, h3, h4, h5, p, a, a:visited, div.h1 {
           color: invert($text-primary-color);
           span {
