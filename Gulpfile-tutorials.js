@@ -24,10 +24,12 @@ var folderNames = JSON.parse(fs.readFileSync('tutorials/folders.json'))
 var folders = []
 var tags = []
 
-tutorials.forEach(function (tutorial) {
+tutorials.forEach(function (tutorial, index) {
   var t = tutorial.tags[0]
   // create list of tags and most ecent posts
   var d = new Date(tutorial.date)
+
+  tutorials[index].url = '/' + tutorial.folder + '/' + tutorial.page + '/'
 
   // add/update tag list
   var tagIndex = tags.findIndex(function (element) {

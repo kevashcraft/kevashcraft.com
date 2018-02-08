@@ -22,7 +22,7 @@
       <ul class="tutorial-list">
         {% for tutorial in tag.tutorials %}
         <li>
-          <span>{{ tutorial.date|date("M jS, 'y") }}</span> - <a href="/{{ tutorial.url }}" title="{{ tutorial.title }}">{{ tutorial.title }}</a>
+          <span>{{ tutorial.date|date("M jS, 'y") }}</span> - <a href="{{ tutorial.url }}" title="{{ tutorial.title }}">{{ tutorial.title }}</a>
         </li>
         {% endfor %}
       </ul>
