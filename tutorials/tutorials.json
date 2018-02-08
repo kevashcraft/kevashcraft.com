@@ -25,5 +25,14 @@
     "tags":[
       "Conainers", "LinuxAdmin", "DevOps", "Containers"
     ]
+  },
+  {
+    "title":"Puppet Setup",
+    "folder":"puppet",
+    "page":"setup",
+    "date":"2018-02-06 13:17:00",
+    "tags":[
+      "DevOps", "LinuxAdmin"
+    ]
   }
 ]
