@@ -1,0 +1,142 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Puppet 5 Example' %}
+
+{% block content %}
+<section>
+  <h3><a href="/puppet-5/example/" title="Puppet 5 Example">Puppet 5 Example</a></h3>
+  <div class="flex">
+    <div>
+      <img src="/img/common/puppet-logo.svg" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        <a href="https://puppet.com/docs/puppet/5.3/index.html" target="_blank" rel="noopener" title="Puppet Reference Manual">Puppet</a> is a server management tool. This is an example of how to run Puppet. Make sure you've got a <a href="/puppet-5/setup/" title="Setup Puppet 5">Puppet Master Setup first</a>.
+      </p>
+      <p>
+        In this tutorial we'll walk through how to <a href="#install-puppet">installing Puppet 5</a>, configuring the <a href="#configure-hostnames">hostnames</a>, and <a href="#configure-puppet">puppet agent</a>, then <a href="#puppet-agent">running a test</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Tutorial Overview</h5>
+    <ul>
+      <li>
+        <a href="#install-puppet">Install Puppet</a>
+      </li>
+      <li>
+        <a href="#configure-hostnames">Configure Hostnames</a>
+      </li>
+      <li>
+        <a href="#puppet-agent">Run Puppet Agent</a>
+      </li>
+    </ul>
+  </div>
+  <div class="indent">
+    <h5>More</h5>
+    <ul>
+      <li>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="install-puppet">
+  <h4><a href="#install-puppet">Install Puppet Agent</a></h4>
+  <p>
+    To install the Puppet 5 Agent, add the official repo and then use your package manager.
+  </p>
+  <div class="snippet">
+    <p>Install the Puppet Agent on CentOS 7</p>
+    <pre>
+rpm -Uvh https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+yum install puppet -y
+    </pre>
+  </div>
+  <div class="snippet">
+    <p>Install the Puppet Agent on Ubuntu 16.04</p>
+    <pre>
+wget https://apt.puppetlabs.com/puppet5-release-xenial.deb
+dpkg -i puppet5-release-xenial.deb
+apt update
+apt install puppet
+    </pre>
+  </div>
+  <p>
+    Here's a <a href="https://puppet.com/docs/puppet/5.3/puppet_platform.html" target="_blank" rel="noopener" title="Puppet Installation Instructions">list of all of the Official Puppet Repositories</a> for other operating systems.
+  </p>
+  <div class="snippet">
+    <p>Set PATH for /opt/puppetlabs/bin</p>
+    <pre>
+echo 'export PATH=/opt/puppetlabs/bin:$PATH' >> ~/.bashrc
+export PATH=/opt/puppetlabs/bin:$PATH
+    </pre>
+  </div>
+</section>
+<section id="configure-hostnames">
+  <h4><a href="#configure-hostnames">Configure Hostnames</a></h4>
+  <p>
+    Puppet uses SSL certificates to identify the nodes, so the hostnames for all of the servers need to be defined. Ideally you'd setup BIND for this, but in this example we'll just use the hosts file. We're going to assume the Puppet Master is at 10.10.10.1 and the client is at 10.10.10.2
+  </p>
+  <div class="snippet">
+    <p>set /etc/hostname and add to /etc/hosts</p>
+    <pre>
+# set the hostname
+hostname box1.example.com
+echo "box1.example.com" > /etc/hostname
+
+# add /etc/hosts entries
+echo "127.0.0.1 box1.example.com" >> /etc/hosts
+echo "10.10.10.2 box1.example.com" >> /etc/hosts
+echo "10.10.10.1 puppet.example.com" >> /etc/hosts
+    </pre>
+  </div>
+</section>
+<section id="configure-puppet">
+  <h4><a href="#configure-puppet">Configure Puppet</a></h4>
+  <p>
+    Before running the agent we must set the hostname of the server in <span class="command">/etc/puppetlabs/puppet/puppet.conf</span>.
+  </p>
+  <div class="snippet">
+    <p class="filename">/etc/puppetlabs/puppet/puppet.conf</p>
+    <pre>
+[main]
+  server = puppet.example.com
+    </pre>
+  </div>
+</section>
+<section id="puppet-agent">
+  <h4><a href="#puppet-agent">Run Puppet Agent</a></h4>
+  <p>
+    The first time you run the agent it'll request that the server sign it's cert. After the puppet master signs the cert, on subsequent executions the agent will retrieve the configuration catalog and apply it.
+  </p>
+  <div class="snippet one-line"><pre>puppet agent --test</pre></div>
+  <p><strong>On the Puppet Master</strong> run this to see the certificate signging request.</p>
+  <div class="snippet one-line"><pre>puppet cert list</pre></div>
+  <p>And then to sign the certificate.</p>
+  <div class="snippet one-line"><pre>puppet cert sign box1.example.com</pre></div>
+  <p>Run the agent again <strong>on the client</strong> to retrieve and apply the catalog.</p>
+  <div class="snippet one-line"><pre>puppet agent --test</pre></div>
+</section>
+<section id="troubleshooting">
+  <h4><a href="#troubleshooting">Troubleshooting</a></h4>
+  <p>
+    <em>Basis Checks</em>
+  </p>
+  <p>Check if the server port is open and listening.
+  <div class="snippet">
+    <p>On an Agent</p>
+    <pre>nmap -p 8140 puppet.example.com</pre>
+  </div>
+  <p>Check the hostname of all servers.
+  <div class="snippet">
+    <p>On each server</p>
+    <pre>hostname</pre>
+  </div>
+  <p>
+    <em>Error: certificate verify failed</em>
+  </p>
+  <p>Try resetting the Agent SSL directory</p>
+  <div class="snippet one-line"><pre>mv /opt/puppetlabs/puppet/ssl/ /opt/puppetlabs/puppet/ssl.old</pre></div>
+</section>
+{% endblock %}

@@ -1,10 +1,10 @@
 {% extends 'templates/master.twig' %}
 
-{% set title = 'Puppet Setup' %}
+{% set title = 'Setup Puppet 5' %}
 
 {% block content %}
 <section>
-  <h3><a href="/puppet/setup/" title="Puppet Setup">Puppet Setup</a></h3>
+  <h3><a href="/puppet-5/setup/" title="Setup Puppet 5">Setup Puppet 5</a></h3>
   <div class="flex">
     <div>
       <img src="/img/common/puppet-logo.svg" width="150px">
@@ -58,37 +58,53 @@
   </p>
   <div class="snippet">
     <p class="filename">Directory Structure</p>
-    <p class="note">/etc/puppet</p>
+    <p class="note">/etc/puppetlabs/code/environments/production</p>
     <pre>
-./manifests/site.pp   <span>#list of hosts and their roles</span>
+./manifests/site.pp  <span>#list of hosts and their roles</span>
 
-./hieradata/common.yaml   <span>#default configuration values</span>
-./hieradata/nodes/   <span>#host-specific config values</span>
+./data/common.yaml   <span>#default configuration values</span>
+./data/nodes/        <span>#host-specific config values</span>
 
-./modules/   <span>#custom modules</span>
+./modules/           <span>#custom modules</span>
 ./modules/$module/manifests/init.pp   <span>#module entry point</span>
-./modules/$module/files/   <span>#static files</span>
-./modules/$module/templates/   <span>#template files</span>
+./modules/$module/files/              <span>#static files</span>
+./modules/$module/templates/          <span>#template files</span>
     </pre>
   </div>
 </section>
 <section id="install-puppet">
   <h4><a href="#install-puppet">Install Pupppet Server</a></h4>
+  <p>
+    To install Puppet 5, add the official repo and then use your package manager.
+  </p>
   <div class="snippet">
-    <p>Install Puppet on CentOS</p>
+    <p>Install Puppet on CentOS 7</p>
     <pre>
-yum install epel-release -y
-yum install puppet-server -y
-systemctl start puppet
-systemctl enable puppet
+rpm -Uvh https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+yum install puppetserver -y
+systemctl start puppetserver
+systemctl enable puppetserver
+    </pre>
+  </div>
+  <div class="snippet">
+    <p>Install Puppet on Ubuntu 16.04</p>
+    <pre>
+wget https://apt.puppetlabs.com/puppet5-release-xenial.deb
+dpkg -i puppet5-release-xenial.deb
+apt update
+apt install puppetserver
     </pre>
   </div>
   <p>
-    Puppet can be installed from the EPEL Release repository on CentOS and then started/enabled with systemd.
+    Here's a <a href="https://puppet.com/docs/puppet/5.3/puppet_platform.html" target="_blank" rel="noopener" title="Puppet Installation Instructions">list of all of the Official Puppet Repositories</a> for other operating systems.
   </p>
-  <p>
-    There are newer versions of Puppet as well as <a href="https://puppet.com/docs/puppet/5.3/puppet_platform.html" target="_blank" rel="noopener" title="Puppet Installation Instructions">maintained packages</a> for other distributions. We'll use v3.6 on CentOS for this tutorial for simplicities sake.
-  </p>
+  <div class="snippet">
+    <p>Set PATH for /opt/puppetlabs/bin</p>
+    <pre>
+echo 'export PATH=/opt/puppetlabs/bin:$PATH' >> ~/.bashrc
+export PATH=/opt/puppetlabs/bin:$PATH
+    </pre>
+  </div>
 </section>
 <section id="site-manifest">
   <h4><a href="#site-manifest">Site Manifest</a></h4>
@@ -124,25 +140,28 @@ node 'webserver.example.com' {
     <p class="filename">./hiera.yaml</p>
     <pre>
 ---
-:backends:
-  - yaml
-:yaml:
-  :datadir: /etc/puppet/hieradata
-:hierarchy:
-  - "nodes/%{trusted.certname}.yaml"
-  - common.yaml
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+hierarchy:
+  - name: "Per-node data (yaml version)"
+    path: "nodes/%{::trusted.certname}.yaml"
+  - name: "Other YAML hierarchy levels"
+    paths:
+      - "common.yaml"
     </pre>
   </div>
   <p>
-    This states that we'll be using the yaml file format, the data will be stored in ./hieradata, and it will be loaded by first checking if a node-specific file exists (such as ./hieradata/nodes/webserver.example.com.yaml) and if not then loading the ./hieradata/common.yaml file.
+    This states that we'll be using the yaml file format, the data will be stored in ./data, and it will be loaded by first checking if a node-specific file exists (such as ./data/nodes/webserver.example.com.yaml) and if not then loading the ./data/common.yaml file.
   </p>
   <p>
     Next we'll look at an example common.yaml file.
   </p>
   <div class="snippet">
-    <p class="filename">./hieradata/common.yaml</p>
+    <p class="filename">./data/common.yaml</p>
     <pre>
-linux::root_pw: '$1$xUpzU/Wi$IcNKWpMctcsr2nPQ8hXB77'
+linux::root_pw: '$1$xyz$LeL/QNMIaRT9H99RmIsgy/'
 linux::nameserver: 8.8.8.8
     </pre>
   </div>
@@ -153,10 +172,10 @@ linux::nameserver: 8.8.8.8
     Before we move on let's look at one more example that demonstrates an advantage of using the yaml format. We can define variables once and then reuse them, which comes in handy as your configurations grow.
   </p>
   <div class="snippet">
-    <p class="filename">./hieradata/common.yaml</p>
+    <p class="filename">./data/common.yaml</p>
     <pre>
 global::root_pw: &global_root_pw
-  '$1$xUpzU/Wi$IcNKWpMctcsr2nPQ8hXB77'
+  '$1$xyz$LeL/QNMIaRT9H99RmIsgy/'
 global::nameserver: &global_nameserver
   8.8.8.8
 linux::root_pw: *global_root_pw
@@ -370,26 +389,26 @@ nameserver <%= @nameserver %>
   <div class="snippet">
     <p class="filename">./hieradata/common.yaml</p>
     <pre>
-httpd::admin_email: webmaster@kevashcraft.com
+httpd::admin_email: webmaster@example.com
 httpd::docroot: /srv
 httpd::listen_on: 10.17.0.7
 httpd::maint_user: kevin
 httpd::sites:
-  - domain: www.kevashcraft.com
+  - domain: www.example.com
     aliases:
-      - kevashcraft.com
-    docroot: /srv/kevashcraft.com/www/dist
-    ssl: kevashcraft.com
-  - domain: blog.kevashcraft.com
+      - example.com
+    docroot: /srv/example.com/www/dist
+    ssl: example.com
+  - domain: blog.example.com
     aliases:
-      - www.blog.kevashcraft.com
-    docroot: /srv/kevashcraft.com/blog/dist
-    ssl: kevashcraft.com
-  - domain: tutorials.kevashcraft.com
+      - www.blog.example.com
+    docroot: /srv/example.com/blog/dist
+    ssl: example.com
+  - domain: tutorials.example.com
     aliases:
-      - www.tutorials.kevashcraft.com
-    docroot: /srv/kevashcraft.com/tutorials/dist
-    ssl: kevashcraft.com
+      - www.tutorials.example.com
+    docroot: /srv/example.com/tutorials/dist
+    ssl: example.com
     </pre>
   </div>
   <p>
@@ -546,5 +565,9 @@ file { $docroot:
   <p>
     The best part, to me, about Puppet is that it lets me see how I last left my servers configured. If you implement revision control with git then you can also see where they've been over time and make it easy to rollback any changes.
   </p>
+</section>
+<section id="next">
+  <h4><a href="#next">Next</a></h4>
+  <p>Run <a href="/puppet-5/example/">an example</a></p>
 </section>
 {% endblock %}

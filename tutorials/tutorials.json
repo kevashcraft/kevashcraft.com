@@ -27,10 +27,19 @@
     ]
   },
   {
-    "title":"Puppet Setup",
-    "folder":"puppet",
+    "title":"Puppet 5 Setup",
+    "folder":"puppet-5",
     "page":"setup",
     "date":"2018-02-06 13:17:00",
+    "tags":[
+      "DevOps", "LinuxAdmin"
+    ]
+  },
+  {
+    "title":"Puppet 5 Example",
+    "folder":"puppet-5",
+    "page":"example",
+    "date":"2018-02-08 02:20:00",
     "tags":[
       "DevOps", "LinuxAdmin"
     ]
