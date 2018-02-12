@@ -165,6 +165,12 @@ linux::root_pw: '$1$xyz$LeL/QNMIaRT9H99RmIsgy/'
 linux::nameserver: 8.8.8.8
     </pre>
   </div>
+  <div class="snippet">
+    <p class="filename">Generate Linux Password Hash</p>
+    <pre>
+openssl passwd -1 -salt xyz
+    </pre>
+  </div>
   <p>
     This defines the root_pw and nameserver arguments for the linux module.
   </p>
