@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kevashcraft-com-blog
+  labels:
+    project: kevashcraft-com
+spec:
+  selector:
+    matchLabels:
+      project: kevashcraft-com
+      app: kevashcraft-com-blog
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        project: kevashcraft-com
+        app: kevashcraft-com-blog
+    spec:
+      containers:
+      - name: kevashcraft-com-blog
+        image: kevashcraft/kevashcraft-com-blog:latest
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 1

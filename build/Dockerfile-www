@@ -1,0 +1,6 @@
+FROM httpd:2.4.29
+
+COPY www/dist/ /usr/local/apache2/htdocs/
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
