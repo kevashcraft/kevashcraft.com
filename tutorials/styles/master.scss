@@ -19,8 +19,8 @@ html {
           white-space: pre-white;
         }
       }
-      
-      
+
+
       div.snippet {
         overflow-x: auto;
         .filename {
@@ -28,6 +28,9 @@ html {
           em {
             color: darken($note-bright-color, 25%);
           }
+        }
+        .short {
+          margin: 3px 10px;
         }
         .description {
           color: invert($text-primary-color);
@@ -39,7 +42,7 @@ html {
         pre {
           border-top: 1px dashed $code-text-color;
           padding: 15px;
-          
+
           span {
             color: darken($code-text-color, 25%);
             em {
@@ -50,14 +53,14 @@ html {
             color: $note-bright-color;
           }
         }
-        
+
         &.one-line {
           pre {
             border: none;
           }
         }
       }
-      
+
       .code, .command, .snippet {
         background: $code-background-color;
         color: $code-text-color;

@@ -1,0 +1,186 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Setup Kubernetes on DigitalOcean' %}
+
+{% block content %}
+<section>
+  <h3><a href="/k8s/setup-on-digitalocean/" title="Setup Kubernetes on DigitalOcean">Setup Kubernetes on DigitalOcean</a></h3>
+  <div class="flex">
+    <div>
+      <img src="/img/common/k8s-logo.svg" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to setup a <a href="https://kubernetes.io" target="_blank" rel="noopener" title="Kubernetes Homepage">Kubernetes</a> cluster on <a href="https://www.digitalocean.com/" target="_blank" rel="noopener" title="DigitalOcean Homepage">DigitalOcean</a> with <a href="https://coreos.com" target="_blank" rel="noopener" title="CoreOS Homepage">CoreOS</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#create-droplets">Create Droplets on DigitalOcean</a>
+      </li>
+      <li>
+        <a href="#install-kubernetes">Install Kubernetes</a>
+      </li>
+      <li>
+        <a href="#initialize-cluster">Initialize Cluster with Kubeadm</a>
+      </li>
+      <li>
+        <a href="#add-nodes">Add Nodes</a>
+      </li>
+    </ul>
+  </div>
+  <div class="indent">
+    <h5>Additional</h5>
+    <ul>
+      <li>
+        <a href="#useful-commands">Useful Commands</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="create-droplets">
+  <h4><a href="#create-droplets">Create Droplets</a></h4>
+  <p>
+    Create at least two CoreOS droplets in the same region: <span class="command">k8s-master</span>, <span class="command">k8s-000</span>, <span class="command">k8s-001</span>, etc.
+  </p>
+<!--  <div class="flex center">
+    <img src="droplet-coreos-distro.png" class="large">
+  </div> -->
+  <h5>Save IP Addresses</h5>
+  <p>
+    For easy access throughout the rest of this guide, save the ip addresses of the new servers to the variables <span class="command">k8s_master</span> and <span class="command">k8s_nodes</span>.
+  </p>
+  <div class="snippet one-line">
+    <pre>k8s_master="PUBLIC_IP"</pre>
+    <pre>k8s_nodes="PUBLIC_IP_0 PUBLIC_IP_1"</pre>
+  </div>
+</section>
+<section id="install-kubernetes">
+  <h4><a href="#install-kubernetes">Install Kubernetes</a></h4>
+  <p>
+    Install Kubernets with <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/" target="_blank" rel="noopener" title="Kubernetes.io Kubeadm Install Steps">these steps from Kubernetes.io</a>, by making a script to copy to each system.
+  </p>
+  <h5>Setup Commands</h5>
+  <p>
+    Create a file on your local machine (<span class="command">k8s-install.sh</span>) with the setup commands.
+  </p>
+  <div class="snippet">
+    <p class="filename">k8s-install.sh</p>
+    <pre>
+<span>#!/bin/bash</span>
+<span># Start & Enable Docker</span>
+systemctl enable docker && systemctl start docker
+
+<span># Install CNI Plugin</span>
+CNI_VERSION="v0.6.0"
+mkdir -p /opt/cni/bin
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+
+<span># Install kubeadm, kubelet, kubectl</span>
+RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+mkdir -p /opt/bin
+cd /opt/bin
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+chmod +x {kubeadm,kubelet,kubectl}
+
+<span># Create K8s Services</span>
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
+mkdir -p /etc/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+<span># Start & Enable Kubelet</span>
+systemctl enable kubelet && systemctl start kubelet
+
+<span># Networking</span>
+sysctl net.bridge.bridge-nf-call-iptables=1
+ip=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+hostname=`hostname`
+echo "$ip $hostname" >> /etc/hosts
+
+    </pre>
+  </div>
+  <p>
+    Copy the <span class="command">k8s-install.sh</span> file to the servers and run it.
+  </p>
+  <div class="snippet one-line">
+    <pre>for node_ip in $k8s_master $k8s_nodes; do
+  scp k8s-install.sh core@$node_ip:
+  ssh core@$node_ip 'sudo chmod +x k8s-install.sh; sudo ./k8s-install.sh'
+done</pre>
+  </div>
+</section>
+</section>
+<section id="initialize-cluster">
+  <h4><a href="#initialize-cluster">Initialize the Cluster</a></h4>
+  <p>
+    <a href="https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/" target="_blank" rel="noopener" title="Kubernetes.io Kubeadm">Kubeadm</a> is a newer tool that initializes a Kubernetes cluster following best practices. Kubeadm is first ran on the master which produces another command to run on each additional node.
+  </p>
+  <h5>On the Master</h5>
+  <div class="snippet one-line">
+    <pre>ssh core@$k8s_master</pre>
+  </div>
+  <p>
+    Use <span class="command">kubeadm</span> to initialize a cluster, and include an address range to use for the pod network (created with CNI).
+  </p>
+  <div class="snippet one-line">
+    <pre>sudo kubeadm init --pod-network-cidr=192.168.0.0/16</pre>
+  </div>
+  <p>
+    There will be a kubeadm command printed in the output. Save it to use on the nodes you want to join the cluster.
+  </p>
+  <p>Next, copy the config file with the secrets and connection information for the cluster.</p>
+  <div class="snippet one-line">
+    <pre>mkdir -p $HOME/.kube
+sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config</pre>
+  </div>
+  <p>Finally, connect to the new Kubernetes cluster to install a CNI. Here's an example using <a href="https://github.com/projectcalico/cni-plugin" target="_blank" rel="noopener" title="Project Calico">Calico</a>.</p>
+  <div class="snippet one-line">
+    <pre>kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml</pre>
+  </div>
+  <h5>Connect the Workers</h5>
+  <p>
+    Run the kubeadm command from the output above to join the cluster.
+  </p>
+  <div class="snippet one-line">
+    <pre>join_cmd="kubeadm join --token ..."
+for node_ip in $k8s_nodes; do
+  ssh core@$node_ip "sudo $join_cmd"
+done</pre>
+  </div>
+</section>
+<section id="useful-commands">
+  <h4><a href="#useful-commands">Useful Commands</a></h4>
+  <div class="snippet">
+    <p class="short note">List all of the nodes</p>
+    <pre>kubectl get nodes</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">List all of the deployments</p>
+    <pre>kubectl get deployments --all-namespaces</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">Describe a $service in a non-default $namespace</p>
+    <pre>kubectl describe services $service -n $namespace</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">Apply a configuration file</p>
+    <pre>kubectl apply -f $yaml_file</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">Stop Kubelet</p>
+    <pre>sudo systemctl stop kubelet</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">Reset Kubeadm</p>
+    <pre>sudo kubeadm reset</pre>
+  </div>
+  <div class="snippet">
+    <p class="short note">Describe the the $type of $thing</p>
+    <pre>kubectl describe $get $thing --all-namespaces</pre>
+  </div>
+</section>
+{% endblock %}

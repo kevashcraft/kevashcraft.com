@@ -43,5 +43,14 @@
     "tags":[
       "DevOps", "LinuxAdmin"
     ]
+  },
+  {
+    "title":"Setup Kubernetes on DigitalOcean",
+    "folder":"k8s",
+    "page":"setup-on-digitalocean",
+    "date":"2018-02-20 00:43:00",
+    "tags":[
+      "Kubernetes", "K8s", "Containers", "DevOps", "LinuxAdmin"
+    ]
   }
 ]
