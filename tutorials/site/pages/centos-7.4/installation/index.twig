@@ -2,12 +2,18 @@
 
 {% set title = 'Install CentOS 7.4' %}
 
+{% set canonical = url ~ '/centos-7.4/installation/' %}
+{% set logo = url ~ '/img/common/centos-logo.svg' %}
+{% set logo_png = url ~ '/img/common/centos-logo.png' %}
+
+{% set description = 'How to install CentOS 7.4 server, including hdd partitions, networking, and creating users.' %}
+
 {% block content %}
 <section>
-  <h3><a href="/centos-7.4/installation/" title="Install CentOS 7.4">Install CentOS 7.4</a></h3>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
   <div class="flex">
     <div>
-      <img src="/img/common/centos-logo.svg" width="250px">
+      <img src="{{ logo }}" width="250px">
     </div>
     <div class="stretch">
       <p>

@@ -2,15 +2,21 @@
 
 {% set title = 'CentOS 7.4 Basic Configuration' %}
 
+{% set canonical = url ~ '/centos-7.4/basic-configuration/' %}
+{% set logo = url ~ '/img/common/centos-logo.svg' %}
+{% set logo_png = url ~ '/img/common/centos-logo.png' %}
+
+{% set description = 'How to configure a CentOS 7.4 server, including ssh security, networking, and keyboard shortcuts.' %}
+
 {% block content %}
 <section>
-  <h3><a href="/centos-7.4/basic-configuration/" title="CentOS 7.4 Basic Configuration">CentOS 7.4 Basic Configuration</a></h3>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
   <div class="flex">
     <div>
-      <img src="/img/common/centos-logo.svg" width="250px">
+      <img src="{{ logo }}" width="250px">
     </div>
     <div class="stretch">
-      <p>After installing CentOS there are a few basic configurations to make to ensure you've got basic security and easy  access. The first thing we'll do is <a href="#admin-user" title="useradd $username -G $username wheel">add an add an admin user</a> and <a href="#first-update" title="yum update && yum install vim wget rsync">update the system</a>, and then <a href="#ssh-access" title="/etc/ssh/sshd_config AllowUsers PasswordAuthentication">lockdown ssh access with a few settings</a> and a <a href="#firewall-rules" title="/etc/firewalld/zones/public.xml">firewall</a>, next we'll <a href="#selinux-status" title="getenforce  -  /etc/sysconfig/selinux">check on SELinux</a>, <a href="#network-status" title="ip a  -  /etc/sysconfig/network-scripts/ifcg*">check on the network</a>, <a href="#hostname-dns" title="/etc/hostname  -  /etc/resolv.conf">set the hostname and dns</a>, and then <a href="#motd-message" title="/etc/motd  -  /etc/motd.sh">add a login message of the day</a>. There will also be some useful <a href="#keyboard-shortcuts" title="ctrl+r  -  ctrl+shift+c/v  -  ctrl+l  -  ctrl+d">keyboard shortcuts</a> and <a href="#useful-commands" title="wall  -  w  -  netstat  -  ps aux  -  grep  -  cat  -  head  -  tail">commands</a>.</p>
+      <p>After installing CentOS there are a few basic configurations to make to ensure you've got basic security and easy access. The first thing we'll do is <a href="#admin-user" title="useradd $username -G $username wheel">add an add an admin user</a> and <a href="#first-update" title="yum update && yum install vim wget rsync">update the system</a>, and then <a href="#ssh-access" title="/etc/ssh/sshd_config AllowUsers PasswordAuthentication">lockdown ssh access with a few settings</a> and a <a href="#firewall-rules" title="/etc/firewalld/zones/public.xml">firewall</a>, next we'll <a href="#selinux-status" title="getenforce  -  /etc/sysconfig/selinux">check on SELinux</a>, <a href="#network-status" title="ip a  -  /etc/sysconfig/network-scripts/ifcg*">check on the network</a>, <a href="#hostname-dns" title="/etc/hostname  -  /etc/resolv.conf">set the hostname and dns</a>, and then <a href="#motd-message" title="/etc/motd  -  /etc/motd.sh">add a login message of the day</a>. There will also be some useful <a href="#keyboard-shortcuts" title="ctrl+r  -  ctrl+shift+c/v  -  ctrl+l  -  ctrl+d">keyboard shortcuts</a> and <a href="#useful-commands" title="wall  -  w  -  netstat  -  ps aux  -  grep  -  cat  -  head  -  tail">commands</a>.</p>
     </div>
   </div>
   <div class="indent">

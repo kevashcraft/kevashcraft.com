@@ -105,6 +105,8 @@ var data = {
   site: {
     production: prod
   },
+  url: 'https://tutorials.kevashcraft.com',
+  description: "Kevin Ashcraft's tutorials on Linux administration, amateur radio, and web development.",
   tutorials: tutorials,
   folders: folders,
   tags: tags

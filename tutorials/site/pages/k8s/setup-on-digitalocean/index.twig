@@ -2,12 +2,18 @@
 
 {% set title = 'Setup Kubernetes on DigitalOcean' %}
 
+{% set canonical = url ~ '/k8s/setup-on-digitalocean/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'An example of how to setup a Kubernetes cluster on DigitalOcean with CoreOS' %}
+
 {% block content %}
 <section>
-  <h3><a href="/k8s/setup-on-digitalocean/" title="Setup Kubernetes on DigitalOcean">Setup Kubernetes on DigitalOcean</a></h3>
+  <h3><a href="{{ canonical }}" title="Setup Kubernetes on DigitalOcean">Setup Kubernetes on DigitalOcean</a></h3>
   <div class="flex">
     <div>
-      <img src="/img/common/k8s-logo.svg" width="150px">
+      <img src="{{ logo }}" width="150px">
     </div>
     <div class="stretch">
       <p>
@@ -111,7 +117,6 @@ echo "$ip $hostname" >> /etc/hosts
   ssh core@$node_ip 'sudo chmod +x k8s-install.sh; sudo ./k8s-install.sh'
 done</pre>
   </div>
-</section>
 </section>
 <section id="initialize-cluster">
   <h4><a href="#initialize-cluster">Initialize the Cluster</a></h4>

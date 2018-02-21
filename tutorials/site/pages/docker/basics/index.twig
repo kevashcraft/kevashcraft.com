@@ -2,12 +2,18 @@
 
 {% set title = 'Docker Basics' %}
 
+{% set canonical = url ~ '/docker/basics/' %}
+{% set logo = url ~ '/img/common/docker-logo.svg' %}
+{% set logo_png = url ~ '/img/common/docker-logo.png' %}
+
+{% set description = 'An overview of some Docker basics, including how to run a container, create a Dockerfile, and using Docker-Compose.' %}
+
 {% block content %}
 <section>
-  <h3><a href="/docker/basics/" title="Docker Basics">Docker Basics</a></h3>
+  <h3><a href="{{ canonical }}" title="Docker Basics">Docker Basics</a></h3>
   <div class="flex">
     <div>
-      <img src="/img/common/docker-logo.svg" width="150px">
+      <img src="{{ logo }}" width="150px">
     </div>
     <div class="stretch">
       <p>

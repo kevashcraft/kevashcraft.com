@@ -2,12 +2,18 @@
 
 {% set title = 'Setup Puppet 5' %}
 
+{% set canonical = url ~ '/puppet-5/setup/' %}
+{% set logo = url ~ '/img/common/puppet-logo.svg' %}
+{% set logo_png = url ~ '/img/common/puppet-logo.png' %}
+
+{% set description = 'How to a setup Puppet 5 Linux Module to configure users, packages, and services.' %}
+
 {% block content %}
 <section>
-  <h3><a href="/puppet-5/setup/" title="Setup Puppet 5">Setup Puppet 5</a></h3>
+  <h3><a href="{{ canonical }}" title="Setup Puppet 5">Setup Puppet 5</a></h3>
   <div class="flex">
     <div>
-      <img src="/img/common/puppet-logo.svg" width="150px">
+      <img src="{{ logo }}" width="150px">
     </div>
     <div class="stretch">
       <p>
