@@ -1,0 +1,254 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'An Example Kubernetes Application' %}
+
+{% set canonical = url ~ '/k8s/example-application/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'An example Kubernetes Application: setting up a deployment and service' %}
+
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to get an application up and running on <a href="https://kubernetes.io" target="_blank" rel="noopener" title="Kubernetes Homepage">Kubernetes</a> cluster..
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#cluster-layout">Cluster Layout</a>
+      </li>
+      <li>
+        <a href="#config-files">Config Files</a>
+      </li>
+      <li>
+        <a href="#create-deployment">Create a Deployment</a>
+      </li>
+      <li>
+        <a href="#create-service">Create a Service</a>
+      </li>
+      <li>
+        <a href="#create-ingress">Create an Ingress</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="cluster-layout">
+  <h4><a href="#cluster-layout">Cluster Layout</a></h4>
+  <p>
+    A Kubernetes cluster is home to several different tools all working together with the purpose of orchestrating containerized applications. So before we setup an application let's briefly look at the big picture, starting at the base.
+  </p>
+  <p>
+    Nodes are servers (typically CoreOS) that are a part of the cluster. They house the Pods which house the Containers.
+  </p>
+  <p>
+    Containers are created from images (hosted on Docker Hub, GCR, etc). They live inside of Pods.
+  </p>
+  <p>
+    Pods are a group of related Containers (usually when there's a 1-to-1 relationship).
+  </p>
+  <p>
+    Deployments are scalable Pod templates, they define the Pod structure and the number of replicas.
+  </p>
+  <p>
+    Services provide a single point of access to a set of Pods (from within the cluster).
+  </p>
+  <p>
+    Ingresses provide external points of access to Services.
+  </p>
+  <p>
+    Load Balancers (separate from Kubernetes) take incoming requests to a single IP address and distribute them to multiple servers.
+  </p>
+  <p>
+    For example: a request is made on <span class="command">port 80</span> for the <span class="command">host www.example.com</span>. This request first hits the Load Balancer which sends it to any one of the nodes. The Ingress, listening on all of the nodes, receives the request and sends it to a Service, which then forwards it to the correct Pod on the correct Node.
+  </p>
+  <p>
+    Load Balancer -> Ingress -> Service -> Pod
+  </p>
+  <p>
+    To reiterate it all one more time, Containers live in Pods which live on Nodes. Services provide an internal, single point of access to Pods, and Ingresses listen on the external network, sending incoming requests to the appropriate service.
+  </p>
+  <p>
+    Okay, now that we understand the structure, let's setup an example application.
+  </p>
+</section>
+<section id="config-files">
+  <h4><a href="#config-files">Config Files</a></h4>
+  <p>
+    There are a few different ways to interact with Kubernetes, from individual commands to configuration files and Helm.
+  </p>
+  <p>
+    We're going to use the <span class="command">kubectl apply -f</span> command to apply configuration files. This has the advantage of creating the template files as we go and also providing an easy way to update things.
+  </p>
+  <p>
+    You can run <span class="command">kubectl apply -f</span> to both create and update a configuration.
+  </p>
+<section id="create-deployment">
+  <h4><a href="#create-deployment">Create a Deployment</a></h4>
+  <p>
+    Create a simple Deployment of an nginx server.
+  </p>
+  <div class="snippet">
+    <p class="filename">example-com.deployment.yaml</p>
+    <pre>
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: example-com-controller
+  labels:
+    app: example-com
+spec:
+  replicas: 1
+  matchSelector:
+    labels:
+      app: example-com
+  template:
+    metadata:
+      name: example-com-pod
+      labels:
+        app: example-com
+    spec:
+      containers:
+      - name: example-com-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+    </pre>
+  </div>
+  <p>
+    Most configuration files contain this same layout of <span class="command">kind</span>, <span class="command">apiVersion</span>, <span class="command">metadata</span>, and <span class="command">spec</span>.
+  </p>
+  <p>
+    The <span class="command">spec</span> of a Deployment defines the <span class="command">matchSelector</span>, <span class="command">replicas</span>, and <span class="command">template</span>.
+  </p>
+  <p>
+    The <span class="command">matchSelector</span> specifies which Pods this Deployment will control.
+  </p>
+  <p>
+    The <span class="command">replicas</span> states the number of Pods which should be running. This is the number that you can change to scale the Deployment. You could run <span class="command">kubectl scale deployment example-com --replicas=3</span> to change the number of Pods.
+  </p>
+  <p>
+    The <span class="command">template</span> is the Pod configuration. It has the <span class="command">metadata</span> and <span class="command">spec</span> which will be used when the Pods are created.
+  </p>
+  <p>
+    The <span class="command">label</span> in the <span class="command">metadata</span> should match the <span class="command">matchSelector</span>'s label.
+  </p>
+  <p>
+    The <span class="command">spec.template.spec</span> states the <span class="command">containers</span> which will exist inside of the pod.
+  </p>
+  <p>
+    The <span class="command">containers</span> are an array of definitions including a <span class="command">name</span> and <span class="command">image</span>, and can also include <span class="command">ports</span> to expose and a <span class="command">livenessProbe</span> that can be used to check if the Container is working.
+  </p>
+  <p>
+    Here we've created a Deployment with 1 Pod containing a Container built from the Nginx image with port 80 exposed.
+  </p>
+</section>
+<section id="create-service">
+  <h4><a href="#create-service">Create a Service</a></h4>
+  <p>
+    Create a Service for the example-com Pods.
+  </p>
+  <div class="snippet">
+    <p class="filename">example-com.service.yaml</p>
+    <pre>
+kind: Service
+apiVersion: v1
+metadata:
+  name: example-com-service
+  labels:
+    app: example-com
+spec:
+  matchSelector:
+    app: example-com
+  ports:
+  - port: 80
+    targetPort: 80
+    </pre>
+  </div>
+  <p>
+    Here we've created a Service which will expose port 80 and forward it to Pods with the label <span class="command">app=example-com</span>.
+  </p>
+  <p>
+    As with the Deployment, this file has the same main properties, a <span class="command">kind</span>, <span class="command">apiVersion</span>, <span class="command">metadata</span>, and a <span class="command">spec</span>.
+  </p>
+  <p>
+    The <span class="command">spec</span> has a <span class="command">matchSelector</span> which states that this service should look for Pods with the <span class="command">app=example-com</span> label.
+  </p>
+  <p>
+    The <span class="command">spec</span> also has a <span class="command">ports</span> property which states the <span class="command">port</span> of the Service and the <span class="command">targetPort</span> to send requests to on the Pod.
+  </p>
+  <p>
+    The Service can be accessed from anywhere within the cluster.
+  </p>
+  <p>
+    Run <span class="command">kubectl describe service example-com-service</span> to see the <span class="command">ClusterIP</span> which is where the Service could be reached.
+  </p>
+  <p>
+    Kubernetes also has a running DNS so the service could be accessed via <span class="command">example-com-service.default.svc.cluster.local</span>.
+  </p>
+  <p>
+    To test this we can run a busybox container and use wget.
+  </p>
+  <div class="snippet one-line">
+    <pre>kubectl run busybox --image busybox --generator run-pod/v1 --tty -i</pre>
+  </div>
+  <div class="snippet one-line">
+    <pre>wget -qO- example-com-service.default.svc.cluster.local</pre>
+  </div>
+</section>
+<section id="create-ingress">
+  <h4><a href="#create-ingress">Create an Ingress</a></h4>
+  <p>
+    Now that we've got some scalable Pods running and a Service to reach them from within Kubernetes, it's time to provide some access to the outside world. To do that we'll create an Ingress.
+  </p>
+  <p>
+    An Ingress in Kubernetes can forward HTTP/s requests to the appropriate Service as defined by <span class="command">hosts</span> and <span class="command">paths</span>. It can also be used to terminate TLS requests, providing a single point for SSL certificates.
+  </p>
+  <div class="snippet">
+    <p class="filename">example-com.ingress.yaml</p>
+    <pre>
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: example-com-ingress
+  labels:
+    app: example-com
+spec:
+  backend:
+    serviceName: example-com-service
+    servicePort: 80
+    </pre>
+  </div>
+  <p>
+    Our Ingress is a simple example which forwards all traffic on port 80 to the example-com-service.
+  </p>
+  <p>
+    The <span class="command">spec</span> states the <span class="command">serviceName</span> and <span class="command">servicePort</span> to send the incoming requests to be answered.
+  </p>
+  <p>
+    The <span class="command">spec</span> could also include <span class="command">rules</span> with <span class="command">hosts</span> and <span class="command">paths</span> and different <span class="command">backends</span> to use, as well as <span class="command">tls</span> information for SSL requests.
+  </p>
+  <p>
+    You should now be able to request port 80 from any Node on the Cluster and have it answered from the example-com Pods.
+  </p>
+  <p>
+    An Ingress is different than setting up a Service with <span class="command">NodePort</span> because it listens on all of the Nodes.
+  </p>
+  <p>
+    On some cloud services an Ingress controller already exists, but on most you'll have to setup an Nginx Ingress Controller.
+  </p>
+</section>
