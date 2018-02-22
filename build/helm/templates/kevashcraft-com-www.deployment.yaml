@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kevashcraft-com-blog
+  name: kevashcraft-com-www
   labels:
     project: kevashcraft-com
 spec:
   selector:
     matchLabels:
       project: kevashcraft-com
-      app: kevashcraft-com-blog
+      app: kevashcraft-com-www
   replicas: 1
   template:
     metadata:
       labels:
         project: kevashcraft-com
-        app: kevashcraft-com-blog
+        app: kevashcraft-com-www
     spec:
       containers:
-      - name: kevashcraft-com-blog
-        image: kevashcraft/kevashcraft-com-blog:latest
+      - name: kevashcraft-com-www
+        image: kevashcraft/kevashcraft-com-www:{{  .Values.version  }}
         ports:
         - containerPort: 80
         livenessProbe:

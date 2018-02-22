@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: kevashcraft-com-tutorials
-        image: kevashcraft/kevashcraft-com-tutorials:latest
+        image: kevashcraft/kevashcraft-com-tutorials:{{  .Values.version  }}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
