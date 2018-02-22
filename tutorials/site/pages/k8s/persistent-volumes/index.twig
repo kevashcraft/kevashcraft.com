@@ -1,0 +1,170 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Persistent Volumes on Kubernetes' %}
+
+{% set canonical = url ~ '/k8s/persistent-volumes/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'How to use Persistent Volumes on Kubernetes' %}
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to setup a <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" rel="noopener" title="Kubernetes Persistent Volumes Doc">Persistent Volume</a> on <a href="https://kubernetes.io/" target="_blank" rel="noopener" title="Kubernetes Home Page">Kubernetes</a> using an NFS server as the data source.
+      </p>
+      <p>
+        Setting up a Persistent Volume is necessary for applications requiring a dynamic data store. Pods are temporary, so to provide a method of accessing non-static files (such as uploads, a database, etc.) a form of persistent storage is required.
+      </p>
+      <p>
+        Some Kubernetes-native clouds provide the ability to allocate storage based on the PersistentVolume configurations, while others will require you to setup your own.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#nfs-server">Setup an NFS Server</a>
+      </li>
+      <li>
+        <a href="#persistentvolume-configuration">PersistentVolume Configuration</a>
+      </li>
+      <li>
+        <a href="#persistentvolumeclaim-configuration">PersistentVolumeClaim Configuration</a>
+      </li>
+      <li>
+        <a href="#pod-configuration">Pod Configuration</a>
+      </li>
+      <li>
+        <a href="#reveiw-recap">Review & Recap</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="nfs-server">
+  <h4><a href="#nfs-server">Setup an NFS Server</a></h4>
+  <p>
+    We'll start by setting up an NFS server on CentOS. This will be straight forward, just a server running an nfs daemon, which you could expand upon with other tools such as block storage or backups.
+  </p>
+  <div class="snippet">
+    <pre>
+yum update
+yum install nfs-server -y
+mkdir /data
+echo "/data 192.168.0.0/16(rw, sync, no_squash_root) >> /etc/exports"
+systemctl start nfs-server
+systemctl enable nfs-server
+    </pre>
+  </div>
+</section>
+<section id="persistentvolume-configuration">
+  <h4><a href="#persistentvolume-configuration">PersistentVolume Configuration</a></h4>
+  <p>
+    A <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes" target="_blank" rel="noopener" title="PersistentVolume Docs">PersistentVolume</a> is storage that is available within the cluster. Kubernetes will look for a PersistentVolume when fulfilling a PersistentVolumeClaim.
+  </p>
+  <p>
+    Here's an example PersistentVolume configuration.
+  </p>
+  <div class="snippet">
+    <p>persistent-volume.yaml</p>
+    <pre>
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: example-com-pv
+  labels:
+    app: example-com
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+  - hard
+  - nfsvers=4.1
+  nfs:
+    path: /data/example-com
+    server: 192.168.0.80
+    </pre>
+  </div>
+  <p>
+    In the above, we've set the <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#capacity" target="_blank" rel="noopener" title="Capacity Property"><span class="command">capacity</span></a> of available storage, available <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes" target="_blank" rel="noopener" title="AccessModes Spec"><span class="command">accessModes</span></a>, <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#volume-mode" target="_blank" rel="noopener" title="volumeMode Spec"><span class="command">volumeMode</span></a>, and nfs settings.
+  </p>
+  <p>
+    In other words, we've told Kubernetes that there's 10Gig available on this NFS server.
+  </p>
+</section>
+<section id="persistentvolumeclaim-configuration">
+  <h4><a href="#persistentvolumeclaim-configuration">PersistentVolumeClaim Configuration</a></h4>
+  <p>
+    A <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims" target="_blank" rel="noopener" title="PersistentVolumeClaim Docs">PersistentVolumeClaim</a> is a request to use a PersistentVolume. It's used by a Pod to access the volume.
+  </p>
+  <div class="snippet">
+    <p>persistent-volume-claim.yaml</p>
+    <pre>
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: example-com-pvc
+  labels:
+    app: example-com
+spec:
+  storageClassName: slow
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+    </pre>
+  </div>
+</section>
+<section id="pod-configuration">
+  <h4><a href="#pod-configuration">Pod Configuration</a></h4>
+  <p>
+    A Pod can now reference the volume and its containers can mount it for use.
+  </p>
+  <div class="snippet">
+    <p>pod.yaml</p>
+    <pre>
+kind: Pod
+apiVersion: v1
+metadata:
+  name: example-com
+  labels:
+    app: example-com
+spec:
+  volumes:
+  - name: example-com
+    persistentVolumeClaim:
+      claimName: example-com
+  containers:
+  - name: example-com
+    image: example/example-com:latest
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: example-com
+    </pre>
+  </div>
+</section>
+<section id="reveiw-recap">
+  <h4><a href="#reveiw-recap">Review & Recap</a></h4>
+  <p>
+    PersistentVolumes are references to available storage setup on the cluster. There are several different types available, and in this example we used a seperate NFS server.
+  </p>
+  <p>
+    PersistentVolumeClaims are individual requests to access PersistentVolumes.
+  </p>
+  <p>
+    Pods will then reference the claim and mount the volume inside of a container.
+  </p>
+</section>
