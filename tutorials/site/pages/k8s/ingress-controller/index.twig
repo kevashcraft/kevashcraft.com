@@ -1,0 +1,144 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Setup a Kubernetes Ingress Controller' %}
+
+{% set canonical = url ~ '/k8s/ingress-controller/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'How to setup an Ingress Controller on Kubernetes with Nginx' %}
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to setup an Ingress Controller on Kubernetes using <a href="https://github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener" title="Github: Nginx Ingress Controller">Nginx</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#ingress-benefits">Ingress Benefits</a>
+      </li>
+      <li>
+        <a href="#install-controller">Install Controller</a>
+      </li>
+      <li>
+        <a href="#scale-controller">Scale Controller</a>
+      </li>
+      <li>
+        <a href="#example-ingress">An Ingress Example</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="ingress-benefits">
+  <h4><a href="#ingress-benefits">Ingress Benefits</a></h4>
+  <p>
+    Ingress in Kubernetes provides the ability of receiving HTTP/S traffic and forwarding it to the appropriate service.
+  </p>
+  <p>
+    An Ingress can have rules to forward traffic based on a <span class="command">host</span> name and <span class="command">path</span>.
+  </p>
+  <p>
+    Ingresses can also terminate TLS requests, housing certificates for the different domains, before forwarding the request to a Service.
+  </p>
+</section>
+<section id="install-controller">
+  <h4><a href="#install-controller">Install Controller</a></h4>
+  <p>
+    Some cloud platforms provide a ready-made Ingress controller, but other Kubernetes implementations will require one to be installed. In this case we'll turn to the Nginx Ingress Controller.
+  </p>
+  <p>
+    The <a href="https://github.com/kubernetes/ingress-nginx/blob/master/deploy/README.md" target="_blank" rel="noopener" title="Nginx Ingress Controller Deployment Steps">Deployment Steps</a> are listed in the official repo in a few different sections. We'll combine the ones needed to get Ingress working on a non-native platform (such as DigitalOcean).
+  </p>
+  <p>
+    First setup the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/deploy/README.md#mandatory-commands" target="_blank" rel="noopener" title="Deploy the Namespace, etc.">the namespace, default backend, and configmaps</a>. The default backend is where all traffic without a matching host will be directed.
+  </p>
+  <div class="snippet">
+    <pre>
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/default-backend.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/configmap.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/tcp-services-configmap.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/udp-services-configmap.yaml
+    </pre>
+  </div>
+  <p>
+    Next we'll install the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/deploy/README.md#install-with-rbac-roles" target="_blank" rel="noopener" title="Nginx Ingress Controller">controller with RBAC roles</a>.
+  </p>
+  <div class="snippet">
+    <pre>
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/with-rbac.yaml
+    </pre>
+  </div>
+  <p>
+    Then <a href="https://github.com/kubernetes/ingress-nginx/blob/master/deploy/README.md#baremetal" target="_blank" rel="noopener" title="Nginx Ingress Service">the service</a> for baremetal/non-native clouds.
+  </p>
+  <div class="snippet">
+    <pre>
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/baremetal/service-nodeport.yaml
+    </pre>
+  </div>
+  <p>
+    Finally, patch the Service so that it uses the HostNetwork for communication.
+  </p>
+  <div class="snippet">
+    <pre>
+kubectl patch deployment nginx-ingress-controller -n ingress-nginx --patch '{"spec": {"template": {"spec": {"hostNetwork": true} }
+    </pre>
+  </div>
+</section>
+<section id="scale-controller">
+  <h4><a href="#scale-controller">Scale the Controller</a></h4>
+  <p>
+    You'll need one instance of the controller running for each Node so scale it accordingly.
+  </p>
+  <div class="snippet">
+    <pre>kubectl scale deployment -n ingress-nginx nginx-ingress-controller --replicas=$NUMBER_OF_NODES</pre>
+  </div>
+</section>
+<section id="example-ingress">
+  <h4><a href="#example-ingress">An Example Ingress</a></h4>
+  <p>
+    Let's look at an example Ingress configuration.
+  </p>
+  <div class="snippet">
+    <pre>
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-com
+  labels:
+    project: example-com
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - backend:
+          serviceName: example-com
+          servicePort: 80
+  - host: api.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: example-com-api
+          servicePort: 80
+    </pre>
+  </div>
+  <p>
+    Here we're setting up an Ingress configuration that will listen for requests destined for two domains, example.com and api.example.com. Any requests not matching the rules will be sent to the default backend (setup in the first step).
+  </p>
+  <p>
+    These rules could also include specific <span class="command">paths</span> to go to different Services.
+  </p>
+</section>
