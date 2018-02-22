@@ -1,0 +1,182 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Helm Charts on Kubernetes' %}
+
+{% set canonical = url ~ '/k8s/helm-charts/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'How to use Helm Charts on Kubernetes' %}
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to create a Helm Chart for your application.
+      </p>
+      <p>
+        A <a href="https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/getting_started.md" target="_blank" rel="noopener" title="Helm Charts: Getting Started">Chart</a> is a group of configuration files used to run your application on <a href="https://kubernetes.io" target="_blank" rel="noopener" title="Kubernetes Homepage">Kubernetes</a>.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#chart-structure">Chart Structure</a>
+      </li>
+      <li>
+        <a href="#create-chart">Create a Chart</a>
+      </li>
+      <li>
+        <a href="#example-chart">An Example Chart</a>
+      </li>
+      <li>
+        <a href="#install-chart">Install a Chart</a>
+      </li>
+      <li>
+        <a href="#set-values">Set Specific Values</a>
+      </li>
+      <li>
+        <a href="#upgrade-chart">Upgrade a Chart</a>
+      </li>
+    </ul>
+  </div>
+  <div class="indent">
+    <h5>Extra</h5>
+    <ul>
+      <li>
+        <a href="#additional-commands">Additional Commands</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="chart-structure">
+  <h4><a href="#chart-structure">Chart Structure</a></h4>
+  <p>
+    A Chart has three basic components. A templates directory where your Services and Deployments will be, a values.yaml file that's used to define any variable values, and a Chart.yaml file with some metadata about the chart.
+  </p>
+  <div class="snippet">
+    <pre>
+/templates    <span># configuration files/templates</span>
+/values.yaml  <span># values used in the templates</span>
+/Chart.yaml   <span># metadata about the Chart</span>
+    </pre>
+  </div>
+</section>
+<section id="create-chart">
+  <h4><a href="#create-chart">Create a Chart</a></h4>
+  <p>
+    Chart can be created with the `helm create` command. This will create a new directory with some placeholder files.
+  </p>
+  <div class="snippet">
+    <pre>helm create example</pre>
+  </div>
+</section>
+<section id="example-chart">
+  <h4><a href="#example-chart">An Example Chart</a></h4>
+  <p>
+    This is an example Chart that will setup a Deployment of the latest Nginx container.
+  </p>
+  <div class="snippet">
+    <p class="filename">Chart.yaml</p>
+    <pre>
+apiVersion: v1
+appVersion: "1.0"
+description: An Example Chart
+name: example-com
+version: 0.1.0
+    </pre>
+  </div>
+  <div class="snippet">
+    <p class="filename">values.yaml</p>
+    <pre>
+version: latest
+    </pre>
+  </div>
+  <div class="snippet">
+    <p class="filename">templates/example-com.deployment.yaml</p>
+    <pre>
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: example-com-controller
+  labels:
+    app: example-com
+spec:
+  replicas: 1
+  matchSelector:
+    labels:
+      app: example-com
+  template:
+    metadata:
+      name: example-com-pod
+      labels:
+        app: example-com
+    spec:
+      containers:
+      - name: example-com-nginx
+        image: nginx:{{ .Values.version }}
+        ports:
+        - containerPort: 80
+    </pre>
+  </div>
+</section>
+<section id="install-chart">
+  <h4><a href="#install-chart">Install a Chart</a></h4>
+  <p>
+    The Chart can be install with Helm using the `helm install` command. This will apply all of the configuration files within the Chart.
+  </p>
+  <div class="snippet">
+    <pre>
+helm install -n example-com /path/to/chart
+    </pre>
+  </div>
+  <p>
+    If you don't specify a name, a random one will be issued. This is fun, but can get confusing over time.
+  </p>
+</section>
+<section id="set-values">
+  <h4><a href="#set-values">Set Specific Values</a></h4>
+  <p>
+    Value references used in template files will first be resolved with the values.yaml file. You can override these values by using the `--set` flag when running Helm.
+  </p>
+  <p>
+    As with our example, if we wanted to install a specific version we could do it by setting the 'version' value,
+  </p>
+  <div class="snippet">
+    <pre>
+helm install --set version=1.2.3 /path/to/chart
+    </pre>
+  </div>
+</section>
+<section id="upgrade-chart">
+  <h4><a href="#upgrade-chart">Upgrade a Chart</a></h4>
+  <p>
+    You can upgrade a Helm Chart to apply any configuration changes.
+  </p>
+  <p>
+    To upgrade a chart run the `helm upgrade` command.
+  </p>
+  <div class="snippet">
+    <pre>
+helm upgrade example-com /path/to/chart
+    </pre>
+  </div>
+</section>
+<section id="additional-commands">
+  <h4><a href="#additional-commands">Additional Commands</a></h4>
+  <div class="snippet">
+    <p>List all of the install Charts</p>
+    <pre>helm ls</pre>
+  </div>
+  <div class="snippet">
+    <p>Delete a Chart completely</p>
+    <pre>helm delete --purge $app-name</pre>
+  </div>
+</section>
