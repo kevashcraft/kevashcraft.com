@@ -1,0 +1,76 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Install Helm on Kubernetes' %}
+
+{% set canonical = url ~ '/k8s/install-helm/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'How to install Helm on Kubernetes' %}
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is a quick example of how to install Helm on Kubernetes. <a href="https://github.com/kubernetes/helm" target="_blank" rel="noopener" title="Helm Repo">Helm</a> is a management tool used to install Kubernetes container configurations.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#download-helm">Download Helm</a>
+      </li>
+      <li>
+        <a href="#initialize-helm">Initialize Helm</a>
+      </li>
+      <li>
+        <a href="#create-serviceaccount">Create Service Account</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="download-helm">
+  <h4><a href="#download-helm">Download</a></h4>
+  <p>
+    Helm can be installed with a script from the repo.
+  </p>
+  <p>
+    To install Helm run the <a href="https://github.com/kubernetes/helm/blob/master/docs/install.md#from-script" target="_blank" rel="noopener" title="Helm Install Script">scripts/get_helm.sh</a> script from the repo.
+  </p>
+  <div class="snippet">
+    <pre>curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash</pre>
+  </div>
+</section>
+<section id="initialize-helm">
+  <h4><a href="#initialize-helm">Initialize Helm</a></h4>
+  <p>
+    To add Helm controls to your Kubernetes cluster, begin with the <span class="command">helm init</span> command.
+  </p>
+  <div class="snippet">
+    <pre>helm init</pre>
+  </div>
+</section>
+<section id="create-serviceaccount">
+  <h4><a href="#create-serviceaccount">Create a ServiceAccount</a></h4>
+  <p>
+    If you've used <span class="command">kubeadm</span> to setup the cluster, then you'll need to add a service account for tiller as well.
+  </p>
+  <div class="snippet">
+    <pre>
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl patch deploy --namespace kube-system tiller-deploy --patch '{"spec": {"template": {"spec": {"serviceAccount": "tiller"} } } }'
+    </pre>
+  </div>
+</section>
+<section>
+  <h4>That's All</h4>
+  <p>Happy Helming!</p>
+</section>
