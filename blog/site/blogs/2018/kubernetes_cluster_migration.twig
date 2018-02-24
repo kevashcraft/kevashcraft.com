@@ -1,0 +1,31 @@
+<section>
+  <p>
+    And just when I thought that I was happy with [my Puppet config](https://github.com/kevashcraft/puppet), [Kubernetes](https://kubernetes.io) knocked on the door.
+  </p>
+  <h5>Containerization</h5>
+  </p>
+    For me it happened all at once and yet in pieces. For the first week I was researching containers, starting with [Docker](https://www.docker.com), docker-compose, and then following the obvious next question of, "okay, so how do I move this to production?" and falling into a whole other field of options, including an entirely new operating system. Well, now several weeks later, I've migrated all of my servers into containers orchestrated by Kubernetes.
+  </p>
+  <h5>Previous Servers</h5>
+  <p>
+    I was previously running four servers, a webserver, a puppet/maintenance server, one for EagleLogger, and one for some WordPress sites that I host. All of them CentOS and all of them so cleanly managed by my Puppet modules that I slept well at night and no longer had 'standardize servers' on my tasklist. I really thought that was finally it, that my personal servers would be stable and grow from this design. And now there are still four of them, but they're all running CoreOS and a single service, `kubelet`.
+  </p>
+  <h5>DigitalOcean or Google's GKE?</h5>
+  <p>
+    There are several ways to run Kubernetes, and the choice I found myself faced with was DigitalOcean or GKE. I chose DigitalOcean for this cluster because they've hosted my servers for several years now and I liked the idea of controlling my own master, at least for this project so I could get a better grasp of the software. The prices for a 4-node cluster with a load balancer were comparable, coming in at around $75/month for both DigitalOcean and Google.
+  </p>
+  <p>
+    However, I think that if I was working on anything mission-critical that I'd use GKE, at least if I had to decide today, because services like a scalable database, requestable storage, and built-in master nodes are nice to have in production.
+  </p>
+  <h5>Current Design</h5>
+  <p>
+    My Kubernetes Cluster is currently setup as a master node with three workers, all running a 3gb-1cpu CoreOS droplet behind a load balancer. It was initialized with `kubeadm` and uses a private network for communication.
+  </p>
+  <h5>Thoughts So Far</h5>
+  <p>
+    It's been four days since I pointed the dns servers to the lb, and in that time I've ran into a few issues, but nothing major. For example, I learned that you should not change the hostname of a node, and that it's best to use explicit image versions for containers, and that it can be helpful to login to a node and view the status of `kubelet` when troubleshooting.
+  </p>
+  <p>
+    Really though, it's been fantastic. I love typing `kgp` (an alias for `kubectl get pods`) on my laptop and seeing the status of all of my services, and it's made deploying updates a seamless, reliable process. 10/10 much recommend.
+  </p>
+</section>
