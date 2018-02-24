@@ -1,0 +1,58 @@
+{% extends 'templates/master.twig' %}
+
+{% set title = 'Kubernetes on a DigitalOcean Private Network' %}
+
+{% set canonical = url ~ '/k8s/digitalocean-private-network/' %}
+{% set logo = url ~ '/img/common/k8s-logo.svg' %}
+{% set logo_png = url ~ '/img/common/k8s-logo.png' %}
+
+{% set description = 'How to setup Kubernetes on a DigitalOcean Private Network' %}
+
+{% block content %}
+<section>
+  <h3><a href="{{ canonical }}" title="{{ title }}">{{ title }}</a></h3>
+  <div class="flex">
+    <div>
+      <img src="{{ logo }}" width="150px">
+    </div>
+    <div class="stretch">
+      <p>
+        This is an example of how to setup <a href="https://kubernetes.io" target="_blank" rel="noopener" title="Kubernetes Homepage">Kubernetes</a> on a DigitalOcean private network.
+      </p>
+      <p>
+        Previously we've setup a cluster on DigitalOcean that was publicly available. However we can easily make everything more secure by using a private network for the nodes to communicate. Then we can also use a LoadBalancer to receive all incoming traffic and forward it to the private network.
+      </p>
+    </div>
+  </div>
+  <div class="indent">
+    <h5>Overview</h5>
+    <ul>
+      <li>
+        <a href="#create-droplets">Create Droplets</a>
+      </li>
+      <li>
+        <a href="#install-kubernetes">Install Kubernetes</a>
+      </li>
+      <li>
+        <a href="#initialize-cluster">Initialize Cluster</a>
+      </li>
+      <li>
+        <a href="#join-nodes">Join the Nodes</a>
+      </li>
+      <li>
+        <a href="#access-cluster">Access the Cluster</a>
+      </li>
+      <li>
+        <a href="#load-balancer">Setup a Load Balancer</a>
+      </li>
+      <li>
+        <a href="#create-firewall">Create a Firewall</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="chart-structure">
+  <h4><a href="#chart-structure">Chart Structure</a></h4>
+  <p>
+    A Chart has three basic components. A templates directory where your
+{% endblock %}
