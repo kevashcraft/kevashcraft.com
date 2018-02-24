@@ -1,0 +1,28 @@
+<section>
+  <p>
+    <a href="https://eaglelogger.com/" target="_blank" rel="noopener">EagleLogger</a> is an amateur radio net logging application. It was released into production on 1/29 as a webapp on EagleLogger.com and <a href="https://play.google.com/store/apps/details?id=com.eaglelogger.app" target="_blank" rel="noopener" title="EagleLogger on the Play Store">android app</a> on the play store.
+  </p>
+  <h5>The EagleNet</h5>
+  <p>
+    Every Tuesday evening for the past few years now I've ran the <a href="http://arrlwcf.org/home/wcf-section-nets/" target="_blank" rel="noopener">EagleNet</a>, which is a local <a href="http://www.arrl.org/nts" target="_blank" rel="noopener">NTS</a> ham radio net that runs everyday at 8:30PM on the <a href="http://www.ni4ce.org/" target="_blank" rel="noopener">NI4CE repeater system</a>. One of the purposes of the net, in addition to passing <a href="http://www.arrl.org/files/file/Public%20Service/RADIOGRAM-2011.pdf" target="_blank" rel="noopener" title="Radiogram PDF">traffic</a> and practicing good amateur radio communications, is for other people to checkin to the net by giving their callsign, usually one at-a-time, while the NCS (Net Control Station), coordinates and keeps a list of the people who have checked into the net.
+  </p>
+  <h5>EagleLogger</h5>
+  <p>
+    EagleLogger is a tool to keep a list of the checkins to a net. An ham operator (anyone with an <a href="https://hamstudy.org/" target="_blank" rel="noopener" title="Learn at HamStudy!">amateur radio license</a>) can login, create a net, and search for checkins via an autocomple search box linked to a live copy of the <a href="http://wireless.fcc.gov/uls/index.htm?job=transaction&page=weekly" target="_blank" rel="noopener">FCC license database</a>. There's also a chat window for each net so other hams can communicate to pass signal reports and other helpful information.
+  </p>
+  <h5>The Stack</h5>
+  <p>
+    EagleLogger is a <a href="https://nodejs.org/" target="_blank" rel="noopener">NodeJS</a> application backed by a <a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL</a> database. The front-end is a <a href="https://vuejs.org/" target="_blank" rel="noopener">VueJS</a> SPA with a <a href="https://vuetifyjs.com/en/" target="_blank" rel="noopener">Vuetify</a> UI which communicates to the servers using <a href="https://socket.io/" target="_blank" rel="noopener">SocketIO</a> with a <a href="https://redis.io/" target="_blank" rel="noopener">redis</a> adapter. It's built with <a href="https://webpack.js.org/" target="_blank" rel="noopener">Webpack</a>, uses <a href="https://cordova.apache.org/" target="_blank" rel="noopener">Cordova</a> to create the apk, and includes a testing framework for <a href="https://karma-runner.github.io/2.0/index.html" target="_blank" rel="noopener">Karma</a> unit tests and <a href="http://nightwatchjs.org/" target="_blank" rel="noopener">Nightwatch.js</a> e2e testing (although both need some content).
+  </p>
+  <p>
+    It's running on a <a href="https://tutorials.kevashcraft.com/k8s/setup-on-digitalocean/" target="_blank" rel="noopener" title="How to Setup a Kubernetes Cluster on DigitalOcean">Kubernetes Cluster on DigitalOcean</a> powered by <a href="https://coreos.com" target="_blank" rel="noopener">CoreOS</a> with a <a href="https://tutorials.kevashcraft.com/k8s/persistent-volumes/#nfs-server" target="_blank" rel="noopener">CentOS NFS server</a> and using <a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let's Encrypt</a> for certificates.
+  </p>
+  <h5>The History</h5>
+  <p>
+    This is the second iteration of EagleLogger, the first was originally written three years ago as <a href="https://github.com/kevashcraft/EagleLogger-Polymer" target="_blank" rel="noopener">Polymer application</a> backed by PHP and MySQL. It suffered by being put on the back shelf while I got busy full-time. That taught me a lesson and this new version of the program is designed with CI/CD in mind, keeping everything as modular and straight-forward as possible. Thank you containerization!!
+  </p>
+  <h5>The Data</h5>
+  <p>
+    The FCC provides a downloadable copy of several of <a href="http://wireless.fcc.gov/uls/index.htm?job=transaction" target="_blank" rel="noopener">their databases</a> along with daily transaction logs with updates. These logs are downloaded and parsed into EagleLogger, in-full when the database is first created and daily via a scheduled job.
+  </p>
+</section>
