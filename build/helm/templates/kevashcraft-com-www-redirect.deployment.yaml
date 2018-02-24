@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: kevashcraft-com-www-redirect
-        image: schmunk42/nginx-redirect:latest
+        image: schmunk42/nginx-redirect:0.3.2
         env:
         - name: SERVER_REDIRECT
           value: www.kevashcraft.com
